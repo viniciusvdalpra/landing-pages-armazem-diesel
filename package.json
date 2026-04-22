@@ -1,0 +1,9 @@
+{
+  "name": "landing-pages-armazem-diesel",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Landing pages estáticas da Armazém Auto Peças + Vercel Function para consulta de veículo.",
+  "dependencies": {
+    "@upstash/redis": "^1.34.3"
+  }
+}
