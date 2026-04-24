@@ -136,7 +136,7 @@ function Hero({ heroLayout, selectorStyle, heroImage, onSearch, isSearching }) {
 // ─── SECTION 2: TRUST BAR ─────────────────────────────────────────
 function TrustBar({ style }) {
   const cells = [
-    { icon: "shield", ttl: "Peças Originais", sub: "Bosch · Delphi · Denso", num: "100%" },
+    { icon: "shield", ttl: "Peças Originais", sub: "OEM Bosch", num: "100%" },
     { icon: "box", ttl: "Entrega Garantida", sub: "Rastreada ponta a ponta", num: "48h" },
     { icon: "gear", ttl: "Compatibilidade Confirmada", sub: "FIPE/Denatran", num: "OEM" },
     { icon: "factory", ttl: "11 Anos no Mercado", sub: "Chapecó/SC", num: "11" },
@@ -288,8 +288,8 @@ function WhySection({ style }) {
     },
     {
       num: "02",
-      ttl: "Marcas que o fabricante recomenda.",
-      body: "Bosch, Delphi, Denso. As mesmas marcas montadas de fábrica na sua Amarok, com código OEM confirmado. Quando disponível, também oferecemos versão primeira linha de qualidade equivalente, com garantia.",
+      ttl: "A marca que o fabricante recomenda.",
+      body: "Bosch — a mesma marca montada de fábrica na sua Amarok, com código OEM confirmado. Quando disponível, também oferecemos versão primeira linha de qualidade equivalente, com garantia.",
     },
     {
       num: "03",

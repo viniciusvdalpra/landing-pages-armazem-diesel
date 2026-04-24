@@ -147,7 +147,7 @@ const FAQS = [
   },
   {
     q: "Tem garantia?",
-    a: "Sim. Garantia de fábrica Bosch/Delphi/Denso conforme fabricante, mais garantia de loja da Armazém Auto Peças.",
+    a: "Sim. Garantia de fábrica Bosch conforme fabricante, mais garantia de loja da Armazém Auto Peças.",
   },
   {
     q: "Quais formas de pagamento vocês aceitam?",
