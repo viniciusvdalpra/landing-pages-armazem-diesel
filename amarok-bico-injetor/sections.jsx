@@ -264,6 +264,39 @@ function ResultNotFound({ query }) {
   );
 }
 
+function ResultNotAmarok({ vehicle, query, message }) {
+  const ident = [vehicle?.marca, vehicle?.modelo, vehicle?.ano].filter(Boolean).join(" ") || query;
+  const waMsg = `Olá, consultei ${query} no site (LP Amarok) e meu veículo é ${ident}. Podem me ajudar a encontrar a peça?`;
+  return (
+    <div className="result-wrap fade-in">
+      <div className="vehicle-name">Identificamos: {ident}</div>
+      <div className="vehicle-spec" style={{ marginTop: 8 }}>
+        {message || "Esta LP é específica para VW Amarok. Fale com a gente no WhatsApp pra consultar peças do seu veículo."}
+      </div>
+      <a className="btn btn-red btn-lg" style={{ marginTop: 18 }}
+         href={waLink(waMsg)} target="_blank" rel="noreferrer">
+        <WhatsAppIcon /> Falar com o vendedor
+      </a>
+    </div>
+  );
+}
+
+function ResultError({ query, message }) {
+  return (
+    <div className="result-wrap fade-in">
+      <div className="vehicle-name" style={{ color: "#c1121f" }}>Ops</div>
+      <div className="vehicle-spec" style={{ marginTop: 8 }}>
+        {message || "Não conseguimos consultar agora. Fale com um vendedor."}
+      </div>
+      <a className="btn btn-red btn-lg" style={{ marginTop: 18 }}
+         href={waLink(`Olá, tentei consultar ${query} no site e deu erro. Podem me ajudar?`)}
+         target="_blank" rel="noreferrer">
+        <WhatsAppIcon /> Chamar o vendedor
+      </a>
+    </div>
+  );
+}
+
 function ResultSection({ result }) {
   if (!result) return null;
   return (
@@ -273,6 +306,8 @@ function ResultSection({ result }) {
         {result.kind === "plate" && result.vehicle && <ResultPlate vehicle={result.vehicle} />}
         {result.kind === "year" && <ResultYear year={result.year} variants={result.variants} />}
         {result.kind === "notfound" && <ResultNotFound query={result.query} />}
+        {result.kind === "notamarok" && <ResultNotAmarok vehicle={result.vehicle} query={result.query} message={result.message} />}
+        {result.kind === "error" && <ResultError query={result.query} message={result.message} />}
       </div>
     </section>
   );

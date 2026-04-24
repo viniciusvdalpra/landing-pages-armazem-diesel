@@ -82,31 +82,109 @@ function App() {
     }
   }, [result]);
 
-  const handleSearch = ({ kind, plate, year, motor }) => {
+  const resolvePart = (motor, ano) => {
+    const defaultPart = {
+      name: "BICO INJETOR BOSCH",
+      oem: "Consulte no WhatsApp",
+      brand: "OEM BOSCH",
+      bullets: [
+        "Peça compatível com seu veículo",
+        "Entrega de Chapecó/SC pra todo Brasil",
+        "Garantia de fábrica + Armazém",
+      ],
+      hasLine1a: true,
+    };
+    const variants = YEAR_VARIANTS[ano] || [];
+    if (!variants.length) return defaultPart;
+    const motorUp = String(motor || "").toUpperCase();
+    let match;
+    if (motorUp.includes("V6") || motorUp.includes("3.0")) {
+      match = variants.find((v) => v.motor.toUpperCase().includes("V6"));
+    } else if (motorUp.includes("BITURBO") || motorUp.includes("BI-TURBO") || motorUp.includes("BI TURBO")) {
+      match = variants.find((v) => v.motor.toUpperCase().includes("BITURBO"));
+    } else {
+      match = variants.find((v) => !v.motor.toUpperCase().includes("BITURBO") && !v.motor.toUpperCase().includes("V6")) || variants[0];
+    }
+    if (!match) return defaultPart;
+    const isV6 = match.motor.toUpperCase().includes("V6");
+    return {
+      ...defaultPart,
+      oem: match.oem,
+      hasLine1a: !isV6,
+      bullets: isV6
+        ? ["Peça original motor V6", "Garantia Bosch", "Disponibilidade limitada — consulte estoque"]
+        : ["Peça original de fábrica", "Garantia Bosch", "Pronta entrega de Chapecó/SC"],
+    };
+  };
+
+  const handleSearch = async ({ kind, plate, year, motor }) => {
     setSearching(true);
     setResult(null);
-    setTimeout(() => {
-      if (kind === "plate") {
-        const key = plate.slice(0, 7);
-        const v = PRESET_VEHICLES[key];
-        if (v) {
-          setResult({ kind: "plate", vehicle: v });
-        } else if (plate.length >= 6) {
-          // unknown plate — fall back to the demo vehicle with the user's plate stamped in
-          setResult({
-            kind: "plate",
-            vehicle: { ...FALLBACK_VEHICLE, plate: plate.slice(0,3) + "-" + plate.slice(3), chassi_tail: plate.slice(-6) },
-          });
-        } else {
-          setResult({ kind: "notfound", query: plate });
-        }
-      } else if (kind === "year") {
+
+    if (kind === "year") {
+      setTimeout(() => {
         const variants = YEAR_VARIANTS[year] || [];
         const filtered = motor ? variants.filter((v) => v.motor === motor) : variants;
         setResult({ kind: "year", year, variants: filtered.length ? filtered : variants });
+        setSearching(false);
+      }, 300);
+      return;
+    }
+
+    const clean = String(plate || "").toUpperCase().replace(/[^A-Z0-9]/g, "");
+    const body = clean.length === 7 ? { placa: clean } : { chassi: clean };
+
+    try {
+      const r = await fetch("/api/consulta-veiculo/", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(body),
+      });
+
+      if (r.status === 429) {
+        setResult({ kind: "error", query: clean, message: "Muitas consultas. Tente de novo em 1 minuto." });
+        return;
       }
+      if (!r.ok) {
+        setResult({ kind: "error", query: clean, message: "Não conseguimos consultar agora. Fale com um vendedor no WhatsApp." });
+        return;
+      }
+
+      const data = await r.json();
+      if (!data.found) {
+        setResult({ kind: "notfound", query: clean });
+        return;
+      }
+      if (data.supported === false) {
+        setResult({
+          kind: "notamarok",
+          query: clean,
+          vehicle: data.vehicle || {},
+          message: data.message,
+        });
+        return;
+      }
+
+      const v = data.vehicle || {};
+      setResult({
+        kind: "plate",
+        vehicle: {
+          plate: v.plate,
+          chassi_tail: v.chassi_tail,
+          marca: v.marca,
+          modelo: v.modelo,
+          motor: v.motor,
+          ano: v.ano,
+          cv: v.cv,
+          part: resolvePart(v.motor, v.ano),
+        },
+      });
+    } catch (e) {
+      console.error("consulta_veiculo_error", e);
+      setResult({ kind: "error", query: clean, message: "Erro de conexão. Tente novamente ou fale com um vendedor no WhatsApp." });
+    } finally {
       setSearching(false);
-    }, 900);
+    }
   };
 
   const waMsg = "Olá, cheguei pelo site e quero falar sobre bico injetor pra Amarok.";
