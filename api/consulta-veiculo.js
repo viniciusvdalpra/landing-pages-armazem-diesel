@@ -38,8 +38,26 @@ async function checkRateLimit(ip) {
 function extractPayload(raw) {
   const arr = Array.isArray(raw) ? raw[0] : raw;
   if (!arr || typeof arr !== "object") return null;
-  if (arr.error) return null;
-  return arr.chassi || arr.data || arr;
+  if (arr.error === true) return null;
+
+  // Webhook PLACA: { basico:{dados:{...veiculo}}, chassi:{dados:{chassi}}, ... }
+  if (arr.basico && arr.basico.dados && !arr.basico.error) {
+    const v = { ...arr.basico.dados };
+    if (arr.chassi && arr.chassi.dados && arr.chassi.dados.chassi) {
+      v.chassi_completo = arr.chassi.dados.chassi;
+    }
+    return v;
+  }
+
+  // Webhook CHASSI: { chassi:{...veiculo direto}, error, message }
+  if (arr.chassi && typeof arr.chassi === "object") {
+    if (arr.chassi.marca || arr.chassi.modelo || arr.chassi.chassi_completo) {
+      return arr.chassi;
+    }
+    if (arr.chassi.dados) return arr.chassi.dados;
+  }
+
+  return arr.data || arr;
 }
 
 function normalizeVehicle(p, { plate, chassi }) {
