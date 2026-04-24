@@ -142,36 +142,16 @@ const FAQS = [
     a: "OEM Bosch é a peça original do fabricante — a mesma marca montada na sua Amarok de fábrica. Primeira linha é de outro fornecedor homologado, com qualidade equivalente e garantia, preço mais acessível. Mostramos as duas opções quando disponíveis pra você escolher.",
   },
   {
-    q: "Em quanto tempo chega?",
-    a: "Despacho no mesmo dia útil da confirmação do pagamento. Prazo de entrega varia por região — o vendedor informa o prazo exato no orçamento via WhatsApp.",
-  },
-  {
-    q: "Tem garantia?",
-    a: "Sim. Garantia de fábrica Bosch conforme fabricante, mais garantia de loja da Armazém Auto Peças.",
-  },
-  {
-    q: "Quais formas de pagamento vocês aceitam?",
-    a: "PIX, boleto e cartão de crédito em até 10x. Para frotistas e oficinas, temos condições especiais — fale com o vendedor no WhatsApp.",
-  },
-  {
-    q: "Vocês emitem nota fiscal?",
-    a: "Sim, toda compra sai com nota fiscal eletrônica. Se precisar de nota em CNPJ da empresa/oficina, é só informar no orçamento.",
-  },
-  {
     q: "E se a peça não servir no meu carro?",
     a: "Se o sistema identificou pela placa e a peça não servir, a gente resolve: troca sem custo pra você ou reembolso integral. É pra isso que cruzamos os dados com FIPE/Denatran antes de liberar o pedido.",
   },
   {
-    q: "Como faço troca ou devolução?",
-    a: "Você tem 7 dias para desistência (CDC) e garantia do fabricante em caso de defeito. Embalagem original preservada facilita a troca. O vendedor orienta o passo a passo pelo WhatsApp.",
+    q: "Prazo de entrega e garantia?",
+    a: "Despacho no mesmo dia útil da confirmação do pagamento, entrega rastreada pra todo Brasil de Chapecó/SC. Garantia de fábrica Bosch mais garantia de loja da Armazém Auto Peças.",
   },
   {
-    q: "Vocês entregam para todo o Brasil?",
-    a: "Sim. Despachamos de Chapecó/SC para todo o território nacional via transportadora ou Correios, dependendo da região e urgência. Rastreio é enviado por WhatsApp.",
-  },
-  {
-    q: "Tenho uma oficina — vocês têm condição para revenda?",
-    a: "Sim. Para mecânicos, oficinas e frotistas, oferecemos preço diferenciado, prazo estendido e atendimento prioritário. Chame no WhatsApp e peça condição de revenda.",
+    q: "Formas de pagamento, nota fiscal e troca?",
+    a: "PIX, boleto e cartão em até 10x; toda compra sai com nota fiscal eletrônica (pessoa física ou CNPJ). Troca/devolução em até 7 dias (CDC) + garantia de defeito. Oficinas/frotistas têm condição de revenda — chame no WhatsApp.",
   },
 ];
 

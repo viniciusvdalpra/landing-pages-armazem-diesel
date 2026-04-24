@@ -82,7 +82,7 @@ function App() {
     }
   }, [result]);
 
-  const resolvePart = (motor, ano) => {
+  const resolvePart = (motor, ano, cv) => {
     const defaultPart = {
       name: "BICO INJETOR BOSCH",
       oem: "Consulte no WhatsApp",
@@ -97,10 +97,11 @@ function App() {
     const variants = YEAR_VARIANTS[ano] || [];
     if (!variants.length) return defaultPart;
     const motorUp = String(motor || "").toUpperCase();
+    const cvNum = parseInt(cv, 10) || 0;
     let match;
-    if (motorUp.includes("V6") || motorUp.includes("3.0")) {
+    if (motorUp.includes("V6") || motorUp.includes("3.0") || cvNum >= 224) {
       match = variants.find((v) => v.motor.toUpperCase().includes("V6"));
-    } else if (motorUp.includes("BITURBO") || motorUp.includes("BI-TURBO") || motorUp.includes("BI TURBO")) {
+    } else if (motorUp.includes("BITURBO") || motorUp.includes("BI-TURBO") || motorUp.includes("BI TURBO") || cvNum >= 170) {
       match = variants.find((v) => v.motor.toUpperCase().includes("BITURBO"));
     } else {
       match = variants.find((v) => !v.motor.toUpperCase().includes("BITURBO") && !v.motor.toUpperCase().includes("V6")) || variants[0];
@@ -109,7 +110,7 @@ function App() {
     const isV6 = match.motor.toUpperCase().includes("V6");
     return {
       ...defaultPart,
-      oem: match.oem,
+      oem: match.oem.includes("XXX") ? "Consulte no WhatsApp" : match.oem,
       hasLine1a: !isV6,
       bullets: isV6
         ? ["Peça original motor V6", "Garantia Bosch", "Disponibilidade limitada — consulte estoque"]
@@ -176,7 +177,7 @@ function App() {
           motor: v.motor,
           ano: v.ano,
           cv: v.cv,
-          part: resolvePart(v.motor, v.ano),
+          part: resolvePart(v.motor, v.ano, v.cv),
         },
       });
     } catch (e) {

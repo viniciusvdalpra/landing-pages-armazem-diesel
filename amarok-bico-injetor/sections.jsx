@@ -200,7 +200,7 @@ function ResultPlate({ vehicle }) {
           </ul>
           <a className="btn btn-red btn-lg" style={{ marginTop: 18 }}
              href={waLink(msg)} target="_blank" rel="noreferrer">
-            <WhatsAppIcon /> Falar com vendedor no WhatsApp
+            <WhatsAppIcon /> Falar no WhatsApp
           </a>
         </div>
       </div>

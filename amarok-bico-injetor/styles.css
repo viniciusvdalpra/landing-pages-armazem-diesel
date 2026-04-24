@@ -450,6 +450,10 @@ a { color: inherit; }
 .btn-ghost-light:hover { border-color: var(--off); }
 .btn-block { width: 100%; }
 .btn-lg { padding: 20px 28px; font-size: 15px; }
+@media (max-width: 720px) {
+  .btn-lg { padding: 16px 18px; font-size: 14px; white-space: normal; line-height: 1.25; }
+  .btn-block { white-space: normal; line-height: 1.25; }
+}
 
 /* ---------- section scaffolding ---------- */
 section { position: relative; }
@@ -493,9 +497,12 @@ section { position: relative; }
 @media (max-width: 720px) {
   .hero-overlay {
     background:
-      linear-gradient(180deg, rgba(4,31,48,0.92) 0%, rgba(4,31,48,0.7) 30%, rgba(4,31,48,0.35) 55%, rgba(4,31,48,0.92) 100%);
+      linear-gradient(180deg, rgba(4,31,48,0.85) 0%, rgba(4,31,48,0.55) 35%, rgba(4,31,48,0.2) 65%, rgba(4,31,48,0.75) 100%);
   }
-  .hero-bg { background-position: 62% 45%; }
+  .hero-bg { background-position: 65% 40%; }
+  .hero-h1 { font-size: clamp(38px, 10vw, 52px); line-height: 0.96; }
+  .hero-h1 .line-2 { font-size: 0.52em; }
+  .hero .wa-link { display: none; }
 }
 
 /* red accent line swiping across hero */
@@ -771,6 +778,9 @@ section { position: relative; }
   overflow: hidden;
   display: flex; align-items: center; justify-content: center;
   padding: 12px;
+}
+@media (max-width: 639px) {
+  .part-photo { aspect-ratio: 16 / 10; max-height: 220px; }
 }
 .part-photo img {
   width: 100%; height: 100%; object-fit: contain; display: block;
