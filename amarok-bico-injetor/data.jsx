@@ -155,8 +155,8 @@ const FAQS = [
   },
 ];
 
-const WA_NUMBER = "554998829474"; // per brief: (49) 98829-4743 -> wa.me strips formatting
-const WA_NUMBER_DISPLAY = "(49) 98829-4743";
+const WA_NUMBER = "5549999484754"; // WhatsApp oficial Armazém Auto Peças
+const WA_NUMBER_DISPLAY = "(49) 99948-4754";
 
 function waLink(msg) {
   const text = encodeURIComponent(msg);
