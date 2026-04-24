@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://landing-pages-armazem-diesel.vercel.app/sitemap.xml
