@@ -54,7 +54,7 @@ function Hero({ heroLayout, selectorStyle, heroImage, onSearch, isSearching }) {
               <span className="line-2">Original ou primeira linha</span>
             </h1>
             <p className="hero-sub">
-              Para Amarok 2.0 TDI e 3.0 V6 — 2010 a 2024.
+              Para Amarok 2.0 TDI e 3.0 V6.
             </p>
             <a className="wa-link"
                href={waLink("Olá, quero falar com um vendedor sobre bico injetor pra Amarok.")}
