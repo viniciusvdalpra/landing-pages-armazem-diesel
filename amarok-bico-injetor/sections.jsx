@@ -32,7 +32,7 @@ function Hero({ heroLayout, selectorStyle, heroImage, onSearch, isSearching }) {
 
   const isOutline = selectorStyle === "outline";
   const isFlat = selectorStyle === "flat";
-  const imgSrc = heroImage === "dust" ? "assets/amarok-dust.png" : "assets/amarok-static.png";
+  const imgSrc = heroImage === "dust" ? "assets/amarok-dust.webp" : "assets/amarok-static.webp";
   const [loaded, setLoaded] = useState(false);
   useEffect(() => {
     const img = new Image();
@@ -64,7 +64,7 @@ function Hero({ heroLayout, selectorStyle, heroImage, onSearch, isSearching }) {
           </div>
 
           <div className={`selector ${isOutline ? "is-outline" : ""} ${isFlat ? "is-flat" : ""}`}>
-            <h3 className="sel-title">Encontre o bico certo<br/>pro seu veículo</h3>
+            <h2 className="sel-title">Encontre o bico certo<br/>pro seu veículo</h2>
             <p className="sel-small">Consultamos FIPE/Denatran pra você comprar a peça certa.</p>
 
             <form className="sel-fieldset" onSubmit={submitPlate}>
@@ -188,7 +188,7 @@ function ResultPlate({ vehicle }) {
       <div className="part-label">Peça compatível com seu veículo</div>
       <div className="part-card">
         <div className="part-photo">
-          <img src="assets/bico-bosch-caixa.png" alt={`${p.name} — ${p.oem}`} loading="lazy" />
+          <img src="assets/bico-bosch-caixa.webp" alt={`${p.name} — ${p.oem}`} loading="lazy" />
           <div className="ph-label">{p.name} · {p.oem}</div>
         </div>
         <div>
@@ -224,7 +224,7 @@ function ResultYear({ year, variants }) {
           return (
             <div className="variant-card" key={i}>
               <div className="variant-photo">
-                <img src="assets/bico-bosch-caixa.png" alt={`Bico Bosch ${v.oem}`} loading="lazy" />
+                <img src="assets/bico-bosch-caixa.webp" alt={`Bico Bosch ${v.oem}`} loading="lazy" />
               </div>
               <div className="v-motor">{v.motor}</div>
               <div className="v-hp">{v.cv}</div>
@@ -450,7 +450,7 @@ function Footer() {
             </div>
           </div>
           <div className="foot-col">
-            <h4>Contato</h4>
+            <h3>Contato</h3>
             <ul>
               <li>WhatsApp {WA_NUMBER_DISPLAY}</li>
               <li>contato@armazemautopecas.com.br</li>
@@ -458,7 +458,7 @@ function Footer() {
             </ul>
           </div>
           <div className="foot-col">
-            <h4>Institucional</h4>
+            <h3>Institucional</h3>
             <ul>
               <li><a href="#">Trocas e Devoluções</a></li>
               <li><a href="#">Política de Privacidade</a></li>
@@ -466,7 +466,7 @@ function Footer() {
             </ul>
           </div>
           <div className="foot-col">
-            <h4>Redes</h4>
+            <h3>Redes</h3>
             <ul>
               <li><a href="#">Instagram</a></li>
               <li><a href="#">Facebook</a></li>

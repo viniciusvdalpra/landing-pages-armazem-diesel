@@ -6,7 +6,7 @@
   --off: #F5F5F5;
   --off-2: #EAEAEA;
   --ink: #0a1620;
-  --muted: #6b7680;
+  --muted: #556470;
   --red: #FF021E;
   --ok: #1f8a3f;
 
@@ -643,13 +643,19 @@ section { position: relative; }
 }
 .testi-carousel .testi-card { grid-column: 1; grid-row: 1; opacity: 0; transform: translateX(20px); transition: opacity .35s ease, transform .35s ease; pointer-events: none; }
 .testi-carousel .testi-card.is-on { opacity: 1; transform: none; pointer-events: auto; }
-.testi-dots { display: flex; justify-content: center; gap: 8px; margin-top: 18px; }
+.testi-dots { display: flex; justify-content: center; gap: 4px; margin-top: 18px; }
 .testi-dot {
+  width: 24px; height: 24px; padding: 0; border: 0; background: transparent;
+  cursor: pointer; position: relative;
+}
+.testi-dot::before {
+  content: ""; position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
   width: 8px; height: 8px; border-radius: 50%;
-  background: rgba(10,22,32,0.2); border: 0; padding: 0; cursor: pointer;
+  background: rgba(10,22,32,0.2);
   transition: background .15s ease, transform .15s ease;
 }
-.testi-dot.is-on { background: var(--navy); transform: scale(1.3); }
+.testi-dot.is-on::before { background: var(--navy); transform: translate(-50%, -50%) scale(1.3); }
 
 .placeholder-note {
   text-align: center;
@@ -724,7 +730,7 @@ footer {
   text-transform: uppercase; letter-spacing: 0; color: var(--off); line-height: 1;
 }
 .foot-brand .tl { margin-top: 8px; font-size: 13px; color: rgba(245,245,245,0.6); }
-.foot-col h4 {
+.foot-col h3 {
   font-family: var(--f-body); font-weight: 600; font-size: 11px;
   letter-spacing: 0.2em; text-transform: uppercase;
   color: rgba(245,245,245,0.5); margin: 0 0 14px;
@@ -737,7 +743,7 @@ footer {
   padding: 20px 0;
   display: flex; justify-content: space-between; align-items: center;
   flex-wrap: wrap; gap: 12px;
-  font-size: 12px; color: rgba(245,245,245,0.45);
+  font-size: 12px; color: rgba(245,245,245,0.72);
 }
 
 /* ---------- WhatsApp FAB ---------- */
