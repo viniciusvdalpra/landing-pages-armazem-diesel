@@ -156,7 +156,7 @@ function TrustBar({ style }) {
     { icon: "shield", ttl: "Peças Originais", sub: "OEM Bosch", num: "100%" },
     { icon: "box", ttl: "Entrega Garantida", sub: "Rastreada ponta a ponta", num: "48h" },
     { icon: "gear", ttl: "Compatibilidade Confirmada", sub: "FIPE/Denatran", num: "OEM" },
-    { icon: "factory", ttl: "11 Anos no Mercado", sub: "Chapecó/SC", num: "11" },
+    { icon: "factory", ttl: "Anos de Mercado", sub: "Chapecó/SC", num: "11" },
   ];
   const ref = useRef(null);
   const [seen, setSeen] = useState(false);
@@ -485,7 +485,7 @@ function FinalCTA() {
     <section className="sec-navy">
       <div className="container final-cta">
         <h2 className="h2">Pronto pra <span className="red">voltar<br/>a rodar</span>?</h2>
-        <p>Insira sua placa no topo ou chame direto no WhatsApp.</p>
+        <p>Insira sua placa no <a href="#buscar" className="cta-anchor">seletor acima</a> ou chame direto no WhatsApp.</p>
         <a className="btn btn-red btn-lg" href={waLink(msg)} target="_blank" rel="noreferrer">
           <WhatsAppIcon /> Falar com o vendedor agora
         </a>

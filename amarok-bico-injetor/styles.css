@@ -553,7 +553,22 @@ section { position: relative; }
   .selector { padding: 22px; }
   .sel-title { font-size: 20px; }
   .sel-small { margin-bottom: 14px; }
+  /* TrustBar 2x2: respiro pro FAB do WhatsApp não tampar conteúdo do último card */
+  .trust-row { padding: 28px 0 36px; }
+  .trust-cell:last-child { padding-right: 64px; }
+  /* FAB ligeiramente menor e com mais distância da borda no mobile */
+  .wa-fab { width: 52px; height: 52px; bottom: 14px; right: 14px; }
 }
+
+/* Final CTA — link "seletor acima" sutilmente destacado */
+.final-cta .cta-anchor {
+  color: var(--off);
+  text-decoration: underline;
+  text-decoration-color: rgba(255,2,30,0.7);
+  text-underline-offset: 3px;
+  font-weight: 500;
+}
+.final-cta .cta-anchor:hover { text-decoration-color: var(--red); }
 
 @keyframes section-in {
   from { opacity: 0; transform: translateY(12px); }
