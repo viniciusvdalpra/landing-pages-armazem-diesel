@@ -5,6 +5,18 @@
   "categoria": "bico-injetor",
   "veiculo_key": "amarok",
 
+  "veiculo": {
+    "marca_aliases": ["VOLKSWAGEN", "VW"],
+    "modelo_aliases": ["AMAROK"],
+    "motor_por_cv": {
+      "140": "2.0 TDI Diesel",
+      "163": "2.0 TDI Diesel",
+      "180": "2.0 BiTDI Diesel",
+      "224": "3.0 V6 TDI Diesel",
+      "258": "3.0 V6 TDI Diesel"
+    }
+  },
+
   "hero": {
     "eyebrow": "COMPRA SEGURA. ENTREGA GARANTIDA.",
     "h1_linha1": "BICO INJETOR",
@@ -15,7 +27,8 @@
     "foto_dust": "assets/amarok-dust.webp",
     "foto_alt": "VW Amarok preta em ângulo lateral",
     "bg_position_mobile": "50% 50%",
-    "bg_position_desktop": "62% center"
+    "bg_position_desktop": "62% center",
+    "cta_mobile_label": "Achar o bico certo"
   },
 
   "selector": {
@@ -26,19 +39,36 @@
 
   "peca": {
     "nome": "BICO INJETOR BOSCH",
+    "short_label": "BICO BOSCH",
     "fabricante_label": "OEM BOSCH",
+    "fabricante_principal_short": "Bosch",
     "fabricantes_aceitos": ["Bosch"],
     "foto_default": "assets/bico-bosch-caixa.webp",
     "foto_alt": "Bico injetor Bosch original na caixa",
     "tem_primeira_linha": true,
-    "v6_disponibilidade_limitada": true
+    "v6_disponibilidade_limitada": true,
+    "bullets_default": [
+      "Peça original de fábrica",
+      "Garantia Bosch",
+      "Pronta entrega de Chapecó/SC"
+    ],
+    "bullets_v6": [
+      "Peça original motor V6",
+      "Garantia Bosch",
+      "Disponibilidade limitada — consulte estoque"
+    ],
+    "bullets_unknown": [
+      "Peça compatível com seu veículo",
+      "Entrega de Chapecó/SC pra todo Brasil",
+      "Garantia de fábrica + Armazém"
+    ]
   },
 
   "result_messages": {
     "default_oem_unknown": "Consulte no WhatsApp",
     "hint_primeira_linha_bold": "Também temos versão primeira linha",
     "hint_primeira_linha_tail": "com preço mais acessível. Consulte no WhatsApp.",
-    "not_amarok_default": "Esta LP é específica para VW Amarok. Fale com a gente no WhatsApp pra consultar peças do seu veículo."
+    "not_supported_default": "Esta LP é específica para VW Amarok. Fale com a gente no WhatsApp pra consultar peças do seu veículo."
   },
 
   "wa": {
@@ -48,7 +78,7 @@
     "result_year_template": "Olá, quero cotar o bico injetor {oem} pra Amarok {year} {motor}.",
     "result_dontknow_motor": "Olá, não sei qual é o motor da minha Amarok. Podem me ajudar?",
     "result_notfound_template": "Olá, tentei buscar {query} na landing page e não encontrou. Podem me ajudar?",
-    "result_notamarok_template": "Olá, consultei {query} na landing page Amarok e meu veículo é {ident}. Podem me ajudar a encontrar a peça?",
+    "result_notsupported_template": "Olá, consultei {query} na landing page Amarok e meu veículo é {ident}. Podem me ajudar a encontrar a peça?",
     "result_error_template": "Olá, tentei consultar {query} na landing page e deu erro. Podem me ajudar?",
     "final_cta": "Olá, quero falar com o vendedor sobre bico injetor pra Amarok."
   },

@@ -135,7 +135,7 @@ function Hero({ heroLayout, selectorStyle, heroImage, onSearch, isSearching }) {
               Prefere falar direto com o vendedor? Chamar no WhatsApp →
             </a>
             <a className="hero-cta-mobile" href="#buscar">
-              <span>Achar o bico certo</span>
+              <span>{CFG.hero.cta_mobile_label}</span>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <line x1="5" y1="12" x2="19" y2="12" />
                 <polyline points="13 6 19 12 13 18" />
@@ -158,7 +158,7 @@ function Hero({ heroLayout, selectorStyle, heroImage, onSearch, isSearching }) {
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FF021E" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <polyline points="20 6 9 17 4 12" />
                 </svg>
-                Garantia Bosch
+                Garantia {CFG.peca.fabricante_principal_short}
               </li>
             </ul>
           </div>
@@ -173,7 +173,7 @@ function Hero({ heroLayout, selectorStyle, heroImage, onSearch, isSearching }) {
 // ─── SECTION 2: TRUST BAR ─────────────────────────────────────────
 function TrustBar({ style }) {
   const cells = [
-    { icon: "shield", ttl: "Peças Originais", sub: "OEM Bosch", num: "100%" },
+    { icon: "shield", ttl: "Peças Originais", sub: `OEM ${CFG.peca.fabricante_principal_short}`, num: "100%" },
     { icon: "box", ttl: "Entrega Garantida", sub: "Rastreada ponta a ponta", num: "48h" },
     { icon: "gear", ttl: "Compatibilidade Confirmada", sub: "FIPE/Denatran", num: "OEM" },
     { icon: "factory", ttl: "Anos de Mercado", sub: "Chapecó/SC", num: "11" },
@@ -270,7 +270,7 @@ function ResultYear({ year, variants }) {
               <div className="v-motor">{v.motor}</div>
               <div className="v-hp">{v.cv}</div>
               <div className="v-part">
-                <div className="v-part-name">BICO BOSCH</div>
+                <div className="v-part-name">{CFG.peca.short_label}</div>
                 <div className="v-part-oem">Cód. OEM: {v.oem}</div>
                 <div className="brand-tag" style={{ marginTop: 10 }}>{CFG.peca.fabricante_label}</div>
               </div>
@@ -305,14 +305,14 @@ function ResultNotFound({ query }) {
   );
 }
 
-function ResultNotAmarok({ vehicle, query, message }) {
+function ResultNotSupported({ vehicle, query, message }) {
   const ident = [vehicle?.marca, vehicle?.modelo, vehicle?.ano].filter(Boolean).join(" ") || query;
-  const waMsg = fmt(CFG.wa.result_notamarok_template, { query, ident });
+  const waMsg = fmt(CFG.wa.result_notsupported_template, { query, ident });
   return (
     <div className="result-wrap fade-in">
       <div className="vehicle-name">Identificamos: {ident}</div>
       <div className="vehicle-spec" style={{ marginTop: 8 }}>
-        {message || CFG.result_messages.not_amarok_default}
+        {message || CFG.result_messages.not_supported_default}
       </div>
       <a className="btn btn-red btn-lg" style={{ marginTop: 18 }}
          href={waLink(waMsg)} target="_blank" rel="noreferrer">
@@ -349,7 +349,7 @@ function SearchSection({ result, onSearch, isSearching, selectorStyle }) {
             {result.kind === "plate" && result.vehicle && <ResultPlate vehicle={result.vehicle} />}
             {result.kind === "year" && <ResultYear year={result.year} variants={result.variants} />}
             {result.kind === "notfound" && <ResultNotFound query={result.query} />}
-            {result.kind === "notamarok" && <ResultNotAmarok vehicle={result.vehicle} query={result.query} message={result.message} />}
+            {result.kind === "notsupported" && <ResultNotSupported vehicle={result.vehicle} query={result.query} message={result.message} />}
             {result.kind === "error" && <ResultError query={result.query} message={result.message} />}
           </>
         ) : (

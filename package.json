@@ -4,7 +4,7 @@
   "private": true,
   "description": "Landing pages estáticas da Armazém Auto Peças + Vercel Function para consulta de veículo.",
   "scripts": {
-    "build": "esbuild amarok-bico-injetor/main.jsx --bundle --minify --sourcemap --loader:.jsx=jsx --jsx=automatic --define:process.env.NODE_ENV=\\\"production\\\" --outfile=amarok-bico-injetor/bundle.js && esbuild amarok-bico-injetor/styles.css --minify --outfile=amarok-bico-injetor/styles.min.css"
+    "build": "node scripts/build.mjs"
   },
   "dependencies": {
     "@upstash/redis": "^1.34.3",

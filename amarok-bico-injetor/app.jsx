@@ -98,11 +98,7 @@ function App() {
       name: CFG.peca.nome,
       oem: oemUnknown,
       brand: CFG.peca.fabricante_label,
-      bullets: [
-        "Peça compatível com seu veículo",
-        "Entrega de Chapecó/SC pra todo Brasil",
-        "Garantia de fábrica + Armazém",
-      ],
+      bullets: CFG.peca.bullets_unknown,
       hasLine1a: CFG.peca.tem_primeira_linha,
     };
     const variants = YEAR_VARIANTS[ano] || [];
@@ -123,10 +119,29 @@ function App() {
       ...defaultPart,
       oem: match.oem.includes("XXX") ? oemUnknown : match.oem,
       hasLine1a: !isV6 && CFG.peca.tem_primeira_linha,
-      bullets: isV6
-        ? ["Peça original motor V6", "Garantia Bosch", "Disponibilidade limitada — consulte estoque"]
-        : ["Peça original de fábrica", "Garantia Bosch", "Pronta entrega de Chapecó/SC"],
+      bullets: isV6 && CFG.peca.bullets_v6 ? CFG.peca.bullets_v6 : CFG.peca.bullets_default,
     };
+  };
+
+  const enrichMotor = (vehicle) => {
+    const CFG = window.LP_CONFIG;
+    const map = CFG.veiculo && CFG.veiculo.motor_por_cv;
+    if (!vehicle || vehicle.motor || !map || !vehicle.cv) return vehicle;
+    const fromCv = map[String(vehicle.cv)];
+    if (!fromCv) return vehicle;
+    return { ...vehicle, motor: fromCv };
+  };
+
+  const isSupported = (vehicle) => {
+    const CFG = window.LP_CONFIG;
+    const marcas = (CFG.veiculo && CFG.veiculo.marca_aliases) || [];
+    const modelos = (CFG.veiculo && CFG.veiculo.modelo_aliases) || [];
+    if (!marcas.length || !modelos.length) return true;
+    const marcaUp = String(vehicle.marca || "").toUpperCase();
+    const modeloUp = String(vehicle.modelo || "").toUpperCase();
+    const marcaOk = marcas.some((a) => marcaUp === String(a).toUpperCase());
+    const modeloOk = modelos.some((a) => modeloUp.includes(String(a).toUpperCase()));
+    return marcaOk && modeloOk;
   };
 
   const handleSearch = async ({ kind, plate, year, motor }) => {
@@ -167,17 +182,18 @@ function App() {
         setResult({ kind: "notfound", query: clean });
         return;
       }
-      if (data.supported === false) {
+
+      const v = enrichMotor(data.vehicle || {});
+      if (!isSupported(v)) {
         setResult({
-          kind: "notamarok",
+          kind: "notsupported",
           query: clean,
-          vehicle: data.vehicle || {},
+          vehicle: v,
           message: data.message,
         });
         return;
       }
 
-      const v = data.vehicle || {};
       setResult({
         kind: "plate",
         vehicle: {

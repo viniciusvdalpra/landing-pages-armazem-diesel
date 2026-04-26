@@ -6,14 +6,6 @@ const RATE_LIMIT = 5;
 const RATE_WINDOW = 70;
 const CACHE_TTL = 60 * 60 * 24;
 
-const MOTOR_BY_CV_AMAROK = {
-  140: "2.0 TDI Diesel",
-  163: "2.0 TDI Diesel",
-  180: "2.0 BiTDI Diesel",
-  224: "3.0 V6 TDI Diesel",
-  258: "3.0 V6 TDI Diesel",
-};
-
 function normalizePlate(s) {
   return String(s || "").toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 7);
 }
@@ -69,9 +61,7 @@ function normalizeVehicle(p, { plate, chassi }) {
   let motor = String(p.motor || "").trim();
   const combust = String(p.combustivel || "").toUpperCase();
 
-  if (!motor && cv && MOTOR_BY_CV_AMAROK[cv]) {
-    motor = MOTOR_BY_CV_AMAROK[cv];
-  } else if (motor && combust && !motor.toUpperCase().includes(combust)) {
+  if (motor && combust && !motor.toUpperCase().includes(combust)) {
     motor = `${motor} ${combust[0] + combust.slice(1).toLowerCase()}`;
   }
 
@@ -93,12 +83,6 @@ function normalizeVehicle(p, { plate, chassi }) {
     ano,
     cv,
   };
-}
-
-function isAmarok(v) {
-  const marcaOk = v.marca === "VOLKSWAGEN" || v.marca === "VW";
-  const modeloOk = (v.modelo || "").includes("AMAROK");
-  return marcaOk && modeloOk;
 }
 
 export default async function handler(req, res) {
@@ -170,19 +154,7 @@ export default async function handler(req, res) {
     chassi: kind === "chassi" ? query : null,
   });
 
-  if (!isAmarok(vehicle)) {
-    const resp = {
-      found: true,
-      supported: false,
-      reason: "not_amarok",
-      vehicle: { marca: vehicle.marca, modelo: vehicle.modelo, ano: vehicle.ano },
-      message: "Esta LP é específica para VW Amarok. Fale com a gente no WhatsApp pra consultar peças do seu veículo.",
-    };
-    try { await redis.set(cacheKey, resp, { ex: CACHE_TTL }); } catch {}
-    return res.status(200).json(resp);
-  }
-
-  const resp = { found: true, supported: true, vehicle };
+  const resp = { found: true, vehicle };
   try { await redis.set(cacheKey, resp, { ex: CACHE_TTL }); } catch {}
   return res.status(200).json(resp);
 }
