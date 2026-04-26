@@ -256,7 +256,7 @@ function ResultNotFound({ query }) {
         Não localizamos um veículo para <b style={{ color: "var(--ink)" }}>{query}</b>. Verifique a placa ou fale com um vendedor pra gente conferir pela nota do carro.
       </div>
       <a className="btn btn-red btn-lg" style={{ marginTop: 18 }}
-         href={waLink(`Olá, tentei buscar ${query} no site e não encontrou. Podem me ajudar?`)}
+         href={waLink(`Olá, tentei buscar ${query} na landing page e não encontrou. Podem me ajudar?`)}
          target="_blank" rel="noreferrer">
         <WhatsAppIcon /> Chamar o vendedor
       </a>
@@ -266,7 +266,7 @@ function ResultNotFound({ query }) {
 
 function ResultNotAmarok({ vehicle, query, message }) {
   const ident = [vehicle?.marca, vehicle?.modelo, vehicle?.ano].filter(Boolean).join(" ") || query;
-  const waMsg = `Olá, consultei ${query} no site (LP Amarok) e meu veículo é ${ident}. Podem me ajudar a encontrar a peça?`;
+  const waMsg = `Olá, consultei ${query} na landing page Amarok e meu veículo é ${ident}. Podem me ajudar a encontrar a peça?`;
   return (
     <div className="result-wrap fade-in">
       <div className="vehicle-name">Identificamos: {ident}</div>
@@ -289,7 +289,7 @@ function ResultError({ query, message }) {
         {message || "Não conseguimos consultar agora. Fale com um vendedor."}
       </div>
       <a className="btn btn-red btn-lg" style={{ marginTop: 18 }}
-         href={waLink(`Olá, tentei consultar ${query} no site e deu erro. Podem me ajudar?`)}
+         href={waLink(`Olá, tentei consultar ${query} na landing page e deu erro. Podem me ajudar?`)}
          target="_blank" rel="noreferrer">
         <WhatsAppIcon /> Chamar o vendedor
       </a>

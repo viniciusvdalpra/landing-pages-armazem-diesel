@@ -188,7 +188,7 @@ function App() {
     }
   };
 
-  const waMsg = "Olá, cheguei pelo site e quero falar sobre bico injetor pra Amarok.";
+  const waMsg = "Olá, cheguei pela landing page e quero falar sobre bico injetor pra Amarok.";
 
   return (
     <div>
