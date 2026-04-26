@@ -560,6 +560,26 @@ section { position: relative; }
   .wa-fab { width: 52px; height: 52px; bottom: 14px; right: 14px; }
 }
 
+/* Hero trust signals — só desktop */
+.hero-trusts-desktop {
+  display: none;
+  list-style: none; padding: 0;
+  margin: 28px 0 0;
+  flex-wrap: wrap;
+  gap: 18px 24px;
+  font-size: 13px;
+  color: rgba(245,245,245,0.88);
+  letter-spacing: 0.01em;
+}
+.hero-trusts-desktop li {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+@media (min-width: 960px) {
+  .hero-trusts-desktop { display: flex; }
+}
+
 /* Final CTA — link "seletor acima" sutilmente destacado */
 .final-cta .cta-anchor {
   color: var(--off);
@@ -633,7 +653,7 @@ section { position: relative; }
   max-width: 500px;
 }
 .hero-h1 { color: var(--off); text-shadow: 0 2px 30px rgba(0,0,0,0.35); }
-.hero-h1 .line-2 { display: block; color: rgba(245,245,245,0.75); font-weight: 600; font-size: 0.58em; letter-spacing: 0.02em; margin-top: 8px; }
+.hero-h1 .line-2 { display: block; color: rgba(245,245,245,0.88); font-weight: 600; font-size: 0.58em; letter-spacing: 0.02em; margin-top: 8px; }
 .hero-h1 .red-dot {
   display: inline-block;
   width: 0.18em; height: 0.18em;

@@ -52,7 +52,7 @@ function Selector({ onSearch, isSearching, selectorStyle }) {
             maxLength={17}
             aria-label="Placa ou chassi"
           />
-          <button className="btn btn-navy btn-block" type="submit" disabled={isSearching}>
+          <button className="btn btn-red btn-block" type="submit" disabled={isSearching}>
             {isSearching && mode === "plate" ? <><span className="loader"/> BUSCANDO</> : "BUSCAR"}
           </button>
         </div>
@@ -141,6 +141,26 @@ function Hero({ heroLayout, selectorStyle, heroImage, onSearch, isSearching }) {
                 <polyline points="13 6 19 12 13 18" />
               </svg>
             </a>
+            <ul className="hero-trusts-desktop" aria-label="Garantias">
+              <li>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FF021E" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+                FIPE/Denatran oficial
+              </li>
+              <li>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FF021E" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+                NF-e + 7 dias troca
+              </li>
+              <li>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FF021E" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+                Garantia Bosch
+              </li>
+            </ul>
           </div>
 
           <Selector onSearch={onSearch} isSearching={isSearching} selectorStyle={selectorStyle} />

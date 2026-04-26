@@ -54,13 +54,22 @@ function TweaksPanel({ open, tweaks, setTweaks, onClose }) {
 
 function App() {
   const [tweaks, setTweaks] = useS(TWEAK_DEFAULTS);
+  const [tweaksEnabled, setTweaksEnabled] = useS(false);
   const [tweaksOpen, setTweaksOpen] = useS(false);
   const [searching, setSearching] = useS(false);
   const [result, setResult] = useS(null);
   const resultRef = useR(null);
 
+  // Habilita TweaksPanel só com ?tweaks=1 (mantém fora do HTML público de produção)
+  useE(() => {
+    if (typeof window === "undefined") return;
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("tweaks") === "1") setTweaksEnabled(true);
+  }, []);
+
   // tweaks protocol — listener FIRST, then announce
   useE(() => {
+    if (!tweaksEnabled) return;
     const onMsg = (e) => {
       const d = e.data;
       if (!d || typeof d !== "object") return;
@@ -70,7 +79,7 @@ function App() {
     window.addEventListener("message", onMsg);
     window.parent.postMessage({ type: "__edit_mode_available" }, "*");
     return () => window.removeEventListener("message", onMsg);
-  }, []);
+  }, [tweaksEnabled]);
 
   // scroll to result when it appears
   useE(() => {
@@ -219,12 +228,14 @@ function App() {
         <WhatsAppIcon size={24} />
       </a>
 
-      <TweaksPanel
-        open={tweaksOpen}
-        tweaks={tweaks}
-        setTweaks={setTweaks}
-        onClose={() => setTweaksOpen(false)}
-      />
+      {tweaksEnabled && (
+        <TweaksPanel
+          open={tweaksOpen}
+          tweaks={tweaks}
+          setTweaks={setTweaks}
+          onClose={() => setTweaksOpen(false)}
+        />
+      )}
     </div>
   );
 }
