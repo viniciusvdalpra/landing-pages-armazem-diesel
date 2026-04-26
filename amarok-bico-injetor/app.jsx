@@ -92,16 +92,18 @@ function App() {
   }, [result]);
 
   const resolvePart = (motor, ano, cv) => {
+    const CFG = window.LP_CONFIG;
+    const oemUnknown = CFG.result_messages.default_oem_unknown;
     const defaultPart = {
-      name: "BICO INJETOR BOSCH",
-      oem: "Consulte no WhatsApp",
-      brand: "OEM BOSCH",
+      name: CFG.peca.nome,
+      oem: oemUnknown,
+      brand: CFG.peca.fabricante_label,
       bullets: [
         "Peça compatível com seu veículo",
         "Entrega de Chapecó/SC pra todo Brasil",
         "Garantia de fábrica + Armazém",
       ],
-      hasLine1a: true,
+      hasLine1a: CFG.peca.tem_primeira_linha,
     };
     const variants = YEAR_VARIANTS[ano] || [];
     if (!variants.length) return defaultPart;
@@ -119,8 +121,8 @@ function App() {
     const isV6 = match.motor.toUpperCase().includes("V6");
     return {
       ...defaultPart,
-      oem: match.oem.includes("XXX") ? "Consulte no WhatsApp" : match.oem,
-      hasLine1a: !isV6,
+      oem: match.oem.includes("XXX") ? oemUnknown : match.oem,
+      hasLine1a: !isV6 && CFG.peca.tem_primeira_linha,
       bullets: isV6
         ? ["Peça original motor V6", "Garantia Bosch", "Disponibilidade limitada — consulte estoque"]
         : ["Peça original de fábrica", "Garantia Bosch", "Pronta entrega de Chapecó/SC"],
@@ -197,7 +199,7 @@ function App() {
     }
   };
 
-  const waMsg = "Olá, cheguei pela landing page e quero falar sobre bico injetor pra Amarok.";
+  const waMsg = window.LP_CONFIG.wa.fab_default;
 
   return (
     <div>

@@ -1,5 +1,17 @@
-// data.jsx — mock vehicle database + content
+// data.jsx — content compartilhado (genérico) + helpers WhatsApp
 
+// LP_CONFIG (específico desta LP) e OEMS_DATA (centralizado, todos veículos) vêm do main.jsx via window
+const LP_CONFIG = window.LP_CONFIG;
+const OEMS_DATA = window.OEMS_DATA;
+
+// Variants por ano vêm do oems.json centralizado, indexados por categoria + veículo
+const _veiculo_data = OEMS_DATA[LP_CONFIG.categoria] && OEMS_DATA[LP_CONFIG.categoria][LP_CONFIG.veiculo_key];
+if (!_veiculo_data) {
+  throw new Error(`Config inválida: categoria "${LP_CONFIG.categoria}" + veiculo "${LP_CONFIG.veiculo_key}" não encontrado em oems.json`);
+}
+const YEAR_VARIANTS = _veiculo_data.variants_por_ano;
+
+// Placas de teste — deprecated (busca real chama /api/consulta-veiculo). Mantido por compat.
 const PRESET_VEHICLES = {
   "ABC1234": {
     plate: "ABC-1234",
@@ -69,51 +81,6 @@ const PRESET_VEHICLES = {
 // fallback for unknown valid-looking plates
 const FALLBACK_VEHICLE = PRESET_VEHICLES.ABC1234;
 
-const YEAR_VARIANTS = {
-  2010: [{ motor: "2.0 TDI", cv: "140cv", oem: "0 445 110 XXX" }],
-  2011: [{ motor: "2.0 TDI", cv: "140cv", oem: "0 445 110 XXX" }],
-  2012: [
-    { motor: "2.0 TDI Biturbo", cv: "163cv", oem: "0 445 110 369" },
-    { motor: "2.0 TDI", cv: "140cv", oem: "0 445 110 XXX" },
-  ],
-  2013: [
-    { motor: "2.0 TDI Biturbo", cv: "180cv", oem: "0 445 110 369" },
-    { motor: "2.0 TDI", cv: "140cv / 163cv", oem: "0 445 110 XXX" },
-  ],
-  2014: [
-    { motor: "2.0 TDI Biturbo", cv: "180cv", oem: "0 445 110 369" },
-    { motor: "2.0 TDI", cv: "140cv / 163cv", oem: "0 445 110 XXX" },
-  ],
-  2015: [
-    { motor: "2.0 TDI Biturbo", cv: "180cv", oem: "0 445 110 369" },
-    { motor: "2.0 TDI", cv: "140cv / 163cv", oem: "0 445 110 XXX" },
-  ],
-  2016: [
-    { motor: "2.0 TDI Biturbo", cv: "180cv", oem: "0 445 110 369" },
-    { motor: "2.0 TDI", cv: "140cv / 163cv", oem: "0 445 110 XXX" },
-  ],
-  2017: [
-    { motor: "3.0 V6 TDI", cv: "224cv", oem: "0 445 117 021" },
-    { motor: "2.0 TDI Biturbo", cv: "180cv", oem: "0 445 110 369" },
-  ],
-  2018: [
-    { motor: "3.0 V6 TDI", cv: "224cv", oem: "0 445 117 021" },
-    { motor: "2.0 TDI Biturbo", cv: "180cv", oem: "0 445 110 369" },
-  ],
-  2019: [
-    { motor: "3.0 V6 TDI", cv: "224cv", oem: "0 445 117 021" },
-    { motor: "2.0 TDI Biturbo", cv: "180cv", oem: "0 445 110 369" },
-  ],
-  2020: [
-    { motor: "3.0 V6 TDI", cv: "258cv", oem: "0 445 117 021" },
-    { motor: "2.0 TDI Biturbo", cv: "180cv", oem: "0 445 110 369" },
-  ],
-  2021: [{ motor: "3.0 V6 TDI", cv: "258cv", oem: "0 445 117 021" }],
-  2022: [{ motor: "3.0 V6 TDI", cv: "258cv", oem: "0 445 117 021" }],
-  2023: [{ motor: "3.0 V6 TDI", cv: "258cv", oem: "0 445 117 021" }],
-  2024: [{ motor: "3.0 V6 TDI", cv: "258cv", oem: "0 445 117 021" }],
-};
-
 const TESTIMONIALS = [
   {
     q: "Amarok 2013 parada há uma semana. Inseri a placa, o sistema achou o bico certo e chegou em 3 dias. Tranquilo.",
@@ -163,7 +130,13 @@ function waLink(msg) {
   return `https://wa.me/${WA_NUMBER}?text=${text}`;
 }
 
+// Template helper: substitui {chave} pelos valores do objeto vars
+function fmt(template, vars) {
+  return String(template).replace(/\{(\w+)\}/g, (_, k) => (vars[k] != null ? vars[k] : ''));
+}
+
 Object.assign(window, {
   PRESET_VEHICLES, FALLBACK_VEHICLE, YEAR_VARIANTS, TESTIMONIALS, FAQS,
-  WA_NUMBER, WA_NUMBER_DISPLAY, waLink,
+  WA_NUMBER, WA_NUMBER_DISPLAY, waLink, fmt,
+  // LP_CONFIG e OEMS_DATA já estão em window via main.jsx
 });

@@ -1,6 +1,8 @@
 // sections.jsx — Hero, Trust, Results, Why, Testimonials, FAQ, Final+Footer
 
 const { useState, useEffect, useRef } = React;
+const CFG = window.LP_CONFIG;
+const OEMS = window.OEMS_DATA;
 
 // ─── Reusable Selector (extracted so it can render inside Hero on desktop and inside SearchSection on mobile) ─
 function Selector({ onSearch, isSearching, selectorStyle }) {
@@ -37,8 +39,8 @@ function Selector({ onSearch, isSearching, selectorStyle }) {
 
   return (
     <div className={`selector ${isOutline ? "is-outline" : ""} ${isFlat ? "is-flat" : ""}`}>
-      <h2 className="sel-title">Encontre o bico certo<br/>pro seu veículo</h2>
-      <p className="sel-small">Consultamos FIPE/Denatran pra você comprar a peça certa.</p>
+      <h2 className="sel-title">{CFG.selector.titulo_l1}<br/>{CFG.selector.titulo_l2}</h2>
+      <p className="sel-small">{CFG.selector.subtexto}</p>
 
       <form className="sel-fieldset" onSubmit={submitPlate}>
         <label>Mais preciso</label>
@@ -105,7 +107,7 @@ function Selector({ onSearch, isSearching, selectorStyle }) {
 
 // ─── SECTION 1: HERO ──────────────────────────────────────────────
 function Hero({ heroLayout, selectorStyle, heroImage, onSearch, isSearching }) {
-  const imgSrc = heroImage === "dust" ? "assets/amarok-dust.webp" : "assets/amarok-static.webp";
+  const imgSrc = heroImage === "dust" ? CFG.hero.foto_dust : CFG.hero.foto_static;
   const [loaded, setLoaded] = useState(false);
   useEffect(() => {
     const img = new Image();
@@ -121,16 +123,14 @@ function Hero({ heroLayout, selectorStyle, heroImage, onSearch, isSearching }) {
       <div className="container">
         <div className={`hero-grid ${heroLayout === "stack" ? "is-stack" : ""}`}>
           <div>
-            <div className="eyebrow hero-tag">COMPRA SEGURA. ENTREGA GARANTIDA.</div>
+            <div className="eyebrow hero-tag">{CFG.hero.eyebrow}</div>
             <h1 className="h1 hero-h1">
-              BICO INJETOR<br/>AMAROK<span className="red-dot" />
-              <span className="line-2">Original ou primeira linha</span>
+              {CFG.hero.h1_linha1}<br/>{CFG.hero.h1_linha2}<span className="red-dot" />
+              <span className="line-2">{CFG.hero.h1_sub}</span>
             </h1>
-            <p className="hero-sub">
-              Para Amarok 2.0 TDI e 3.0 V6.
-            </p>
+            <p className="hero-sub">{CFG.hero.sub}</p>
             <a className="wa-link"
-               href={waLink("Olá, quero falar com um vendedor sobre bico injetor pra Amarok.")}
+               href={waLink(CFG.wa.hero_link)}
                target="_blank" rel="noreferrer">
               Prefere falar direto com o vendedor? Chamar no WhatsApp →
             </a>
@@ -210,7 +210,10 @@ function TrustBar({ style }) {
 // ─── SECTION 3: RESULT ────────────────────────────────────────────
 function ResultPlate({ vehicle }) {
   const p = vehicle.part;
-  const msg = `Olá, consultei a placa ${vehicle.plate} na landing page e vi o bico injetor ${p.oem} pra minha ${vehicle.modelo} ${vehicle.ano} ${vehicle.motor}. Quero cotar.`;
+  const msg = fmt(CFG.wa.result_plate_template, {
+    plate: vehicle.plate, oem: p.oem,
+    modelo: vehicle.modelo, ano: vehicle.ano, motor: vehicle.motor,
+  });
   return (
     <div className="result-wrap fade-in">
       <div className="result-head">
@@ -225,7 +228,7 @@ function ResultPlate({ vehicle }) {
       <div className="part-label">Peça compatível com seu veículo</div>
       <div className="part-card">
         <div className="part-photo">
-          <img src="assets/bico-bosch-caixa.webp" alt={`${p.name} — ${p.oem}`} loading="lazy" />
+          <img src={CFG.peca.foto_default} alt={`${p.name} — ${p.oem}`} loading="lazy" />
           <div className="ph-label">{p.name} · {p.oem}</div>
         </div>
         <div>
@@ -241,9 +244,9 @@ function ResultPlate({ vehicle }) {
           </a>
         </div>
       </div>
-      {p.hasLine1a && (
+      {p.hasLine1a && CFG.peca.tem_primeira_linha && (
         <div className="hint-row">
-          💡 <b>Também temos versão primeira linha</b> com preço mais acessível. Consulte no WhatsApp.
+          💡 <b>{CFG.result_messages.hint_primeira_linha_bold}</b> {CFG.result_messages.hint_primeira_linha_tail}
         </div>
       )}
     </div>
@@ -251,24 +254,25 @@ function ResultPlate({ vehicle }) {
 }
 
 function ResultYear({ year, variants }) {
+  const veiculoModelo = OEMS[CFG.categoria][CFG.veiculo_key].veiculo.modelo;
   return (
     <div className="result-wrap fade-in">
-      <div className="vehicle-name">Amarok {year} — escolha a variação do motor</div>
+      <div className="vehicle-name">{veiculoModelo} {year} — escolha a variação do motor</div>
       <div className="vehicle-spec">Selecione o motor do seu veículo para ver a peça exata.</div>
       <div className="variant-grid">
         {variants.map((v, i) => {
-          const msg = `Olá, quero cotar o bico injetor ${v.oem} pra Amarok ${year} ${v.motor}.`;
+          const msg = fmt(CFG.wa.result_year_template, { oem: v.oem, year, motor: v.motor });
           return (
             <div className="variant-card" key={i}>
               <div className="variant-photo">
-                <img src="assets/bico-bosch-caixa.webp" alt={`Bico Bosch ${v.oem}`} loading="lazy" />
+                <img src={CFG.peca.foto_default} alt={`${CFG.peca.nome} ${v.oem}`} loading="lazy" />
               </div>
               <div className="v-motor">{v.motor}</div>
               <div className="v-hp">{v.cv}</div>
               <div className="v-part">
                 <div className="v-part-name">BICO BOSCH</div>
                 <div className="v-part-oem">Cód. OEM: {v.oem}</div>
-                <div className="brand-tag" style={{ marginTop: 10 }}>OEM BOSCH</div>
+                <div className="brand-tag" style={{ marginTop: 10 }}>{CFG.peca.fabricante_label}</div>
               </div>
               <a className="btn btn-navy btn-block" style={{ marginTop: 16 }}
                  href={waLink(msg)} target="_blank" rel="noreferrer">
@@ -279,7 +283,7 @@ function ResultYear({ year, variants }) {
         })}
       </div>
       <p style={{ fontSize: 13, color: "var(--muted)", marginTop: 18 }}>
-        Não sabe qual é o seu? Insira a placa no seletor ↑ ou <a href={waLink("Olá, não sei qual é o motor da minha Amarok. Podem me ajudar?")} target="_blank" rel="noreferrer" style={{ textDecoration: "underline" }}>chame o vendedor no WhatsApp</a>.
+        Não sabe qual é o seu? Insira a placa no seletor ↑ ou <a href={waLink(CFG.wa.result_dontknow_motor)} target="_blank" rel="noreferrer" style={{ textDecoration: "underline" }}>chame o vendedor no WhatsApp</a>.
       </p>
     </div>
   );
@@ -293,7 +297,7 @@ function ResultNotFound({ query }) {
         Não localizamos um veículo para <b style={{ color: "var(--ink)" }}>{query}</b>. Verifique a placa ou fale com um vendedor pra gente conferir pela nota do carro.
       </div>
       <a className="btn btn-red btn-lg" style={{ marginTop: 18 }}
-         href={waLink(`Olá, tentei buscar ${query} na landing page e não encontrou. Podem me ajudar?`)}
+         href={waLink(fmt(CFG.wa.result_notfound_template, { query }))}
          target="_blank" rel="noreferrer">
         <WhatsAppIcon /> Chamar o vendedor
       </a>
@@ -303,12 +307,12 @@ function ResultNotFound({ query }) {
 
 function ResultNotAmarok({ vehicle, query, message }) {
   const ident = [vehicle?.marca, vehicle?.modelo, vehicle?.ano].filter(Boolean).join(" ") || query;
-  const waMsg = `Olá, consultei ${query} na landing page Amarok e meu veículo é ${ident}. Podem me ajudar a encontrar a peça?`;
+  const waMsg = fmt(CFG.wa.result_notamarok_template, { query, ident });
   return (
     <div className="result-wrap fade-in">
       <div className="vehicle-name">Identificamos: {ident}</div>
       <div className="vehicle-spec" style={{ marginTop: 8 }}>
-        {message || "Esta LP é específica para VW Amarok. Fale com a gente no WhatsApp pra consultar peças do seu veículo."}
+        {message || CFG.result_messages.not_amarok_default}
       </div>
       <a className="btn btn-red btn-lg" style={{ marginTop: 18 }}
          href={waLink(waMsg)} target="_blank" rel="noreferrer">
@@ -326,7 +330,7 @@ function ResultError({ query, message }) {
         {message || "Não conseguimos consultar agora. Fale com um vendedor."}
       </div>
       <a className="btn btn-red btn-lg" style={{ marginTop: 18 }}
-         href={waLink(`Olá, tentei consultar ${query} na landing page e deu erro. Podem me ajudar?`)}
+         href={waLink(fmt(CFG.wa.result_error_template, { query }))}
          target="_blank" rel="noreferrer">
         <WhatsAppIcon /> Chamar o vendedor
       </a>
@@ -360,23 +364,7 @@ function SearchSection({ result, onSearch, isSearching, selectorStyle }) {
 
 // ─── SECTION 4: WHY ───────────────────────────────────────────────
 function WhySection({ style }) {
-  const items = [
-    {
-      num: "01",
-      ttl: "Compatibilidade que não erra.",
-      body: "Nosso sistema cruza sua placa com FIPE/Denatran. Você compra o bico certo pro motor certo, no ano certo. Sem achismo, sem telefone trocado, sem peça voltando.",
-    },
-    {
-      num: "02",
-      ttl: "A marca que o fabricante recomenda.",
-      body: "Bosch — a mesma marca montada de fábrica na sua Amarok, com código OEM confirmado. Quando disponível, também oferecemos versão primeira linha de qualidade equivalente, com garantia.",
-    },
-    {
-      num: "03",
-      ttl: "Voltamos a rodar no mesmo dia.",
-      body: "Estoque em Chapecó/SC. Saída direta pra transportadora no mesmo dia útil da confirmação. Sua Amarok não fica parada esperando peça.",
-    },
-  ];
+  const items = CFG.why.items;
   const ref = useRef(null);
   const [seen, setSeen] = useState(false);
   useEffect(() => {
@@ -391,7 +379,7 @@ function WhySection({ style }) {
     <section ref={ref} className="sec-navy sec-pad">
       <div className="container">
         <h2 className="h2" style={{ color: "var(--off)", maxWidth: 18 + "ch" }}>
-          Bico injetor é segurança.<br/>Escolha errada <span style={{ color: "var(--red)" }}>custa caro</span>.
+          {CFG.why.h2_l1}<br/>{CFG.why.h2_l2} <span style={{ color: "var(--red)" }}>{CFG.why.h2_l2_red}</span>.
         </h2>
         <div className={`why-grid ${style === "stacked" ? "is-stacked" : ""}`}>
           {items.map((it, i) => (
@@ -500,17 +488,16 @@ function FAQ() {
 
 // ─── SECTION 7: FINAL CTA + FOOTER ────────────────────────────────
 function FinalCTA() {
-  const msg = "Olá, quero falar com o vendedor sobre bico injetor pra Amarok.";
   return (
     <section className="sec-navy">
       <div className="container final-cta">
-        <h2 className="h2">Pronto pra <span className="red">voltar<br/>a rodar</span>?</h2>
-        <p>Insira sua placa no <a href="#buscar" className="cta-anchor">seletor acima</a> ou chame direto no WhatsApp.</p>
-        <a className="btn btn-red btn-lg" href={waLink(msg)} target="_blank" rel="noreferrer">
-          <WhatsAppIcon /> Falar com o vendedor agora
+        <h2 className="h2">{CFG.final_cta.h2_l1} <span className="red">{CFG.final_cta.h2_l2_red_l1}<br/>{CFG.final_cta.h2_l2_red_l2}</span>?</h2>
+        <p>{CFG.final_cta.sub_pre} <a href="#buscar" className="cta-anchor">{CFG.final_cta.sub_anchor}</a> {CFG.final_cta.sub_post}</p>
+        <a className="btn btn-red btn-lg" href={waLink(CFG.wa.final_cta)} target="_blank" rel="noreferrer">
+          <WhatsAppIcon /> {CFG.final_cta.btn}
         </a>
         <div className="microtext">
-          WhatsApp {WA_NUMBER_DISPLAY} — resposta em minutos, de segunda a sexta.
+          {CFG.final_cta.microtext_pre} {WA_NUMBER_DISPLAY} {CFG.final_cta.microtext_post}
         </div>
       </div>
     </section>
