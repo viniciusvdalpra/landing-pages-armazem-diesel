@@ -540,17 +540,16 @@ function Footer() {
           <div className="foot-col">
             <h3>Institucional</h3>
             <ul>
-              <li><a href="#">Trocas e Devoluções</a></li>
-              <li><a href="#">Política de Privacidade</a></li>
-              <li><a href="#">Termos de Uso</a></li>
+              <li><a href="https://www.armazemautopecas.com.br/trocas-e-devolucoes" target="_blank" rel="noreferrer">Trocas e Devoluções</a></li>
+              <li><a href="https://www.armazemautopecas.com.br/privacidade" target="_blank" rel="noreferrer">Política de Privacidade</a></li>
+              <li><a href="https://www.armazemautopecas.com.br/termos-de-uso" target="_blank" rel="noreferrer">Termos de Uso</a></li>
             </ul>
           </div>
           <div className="foot-col">
             <h3>Redes</h3>
             <ul>
-              <li><a href="#">Instagram</a></li>
-              <li><a href="#">Facebook</a></li>
-              <li><a href="#">YouTube</a></li>
+              <li><a href="https://www.instagram.com/armazemautopecas/" target="_blank" rel="noreferrer">Instagram</a></li>
+              <li><a href="https://www.facebook.com/ArmazemAutopecasImportados" target="_blank" rel="noreferrer">Facebook</a></li>
             </ul>
           </div>
         </div>
