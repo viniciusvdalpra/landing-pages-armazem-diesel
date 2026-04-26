@@ -533,6 +533,7 @@ function Footer() {
             <h3>Contato</h3>
             <ul>
               <li>WhatsApp {WA_NUMBER_DISPLAY}</li>
+              <li>Telefone (49) 3025-8380</li>
               <li>contato@armazemautopecas.com.br</li>
               <li>Chapecó/SC</li>
             </ul>
