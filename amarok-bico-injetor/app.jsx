@@ -201,7 +201,12 @@ function App() {
       />
       <TrustBar style={tweaks.trustStyle} />
       <div ref={resultRef}>
-        <ResultSection result={result} />
+        <SearchSection
+          result={result}
+          onSearch={handleSearch}
+          isSearching={searching}
+          selectorStyle={tweaks.selectorStyle}
+        />
       </div>
       <WhySection style={tweaks.whyStyle} />
       <Testimonials />

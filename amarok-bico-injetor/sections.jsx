@@ -2,9 +2,9 @@
 
 const { useState, useEffect, useRef } = React;
 
-// ─── SECTION 1: HERO ──────────────────────────────────────────────
-function Hero({ heroLayout, selectorStyle, heroImage, onSearch, isSearching }) {
-  const [mode, setMode] = useState("plate"); // plate | year
+// ─── Reusable Selector (extracted so it can render inside Hero on desktop and inside SearchSection on mobile) ─
+function Selector({ onSearch, isSearching, selectorStyle }) {
+  const [mode, setMode] = useState("plate");
   const [plate, setPlate] = useState("");
   const [year, setYear] = useState("");
   const [motor, setMotor] = useState("");
@@ -20,6 +20,7 @@ function Hero({ heroLayout, selectorStyle, heroImage, onSearch, isSearching }) {
       return;
     }
     setErr("");
+    setMode("plate");
     onSearch({ kind: "plate", plate: clean });
   };
 
@@ -27,11 +28,83 @@ function Hero({ heroLayout, selectorStyle, heroImage, onSearch, isSearching }) {
     e?.preventDefault();
     if (!year) { setErr("Selecione o ano."); return; }
     setErr("");
+    setMode("year");
     onSearch({ kind: "year", year: parseInt(year, 10), motor: motor || null });
   };
 
   const isOutline = selectorStyle === "outline";
   const isFlat = selectorStyle === "flat";
+
+  return (
+    <div className={`selector ${isOutline ? "is-outline" : ""} ${isFlat ? "is-flat" : ""}`}>
+      <h2 className="sel-title">Encontre o bico certo<br/>pro seu veículo</h2>
+      <p className="sel-small">Consultamos FIPE/Denatran pra você comprar a peça certa.</p>
+
+      <form className="sel-fieldset" onSubmit={submitPlate}>
+        <label>Mais preciso</label>
+        <div className="sel-row">
+          <input
+            className="sel-input"
+            type="text"
+            placeholder="Informe a placa ou chassi"
+            value={plate}
+            onChange={(e) => setPlate(e.target.value.toUpperCase())}
+            maxLength={17}
+            aria-label="Placa ou chassi"
+          />
+          <button className="btn btn-navy btn-block" type="submit" disabled={isSearching}>
+            {isSearching && mode === "plate" ? <><span className="loader"/> BUSCANDO</> : "BUSCAR"}
+          </button>
+        </div>
+      </form>
+
+      <div className="divider-or"><span>ou</span></div>
+
+      <form className="sel-fieldset" onSubmit={submitYear}>
+        <label>Selecione</label>
+        <div className="sel-row-2">
+          <select
+            className="sel-select"
+            value={year}
+            onChange={(e) => { setYear(e.target.value); setMotor(""); }}
+            aria-label="Ano do veículo"
+          >
+            <option value="">Ano do veículo</option>
+            {Object.keys(YEAR_VARIANTS).map((y) => (
+              <option key={y} value={y}>{y}</option>
+            ))}
+          </select>
+          {year && (
+            <select
+              className="sel-select fade-in"
+              value={motor}
+              onChange={(e) => setMotor(e.target.value)}
+              aria-label="Motor"
+            >
+              <option value="">Motor (opcional)</option>
+              {motors.map((m, i) => (
+                <option key={i} value={m.motor}>{m.motor} — {m.cv}</option>
+              ))}
+            </select>
+          )}
+        </div>
+        <button className="btn btn-navy btn-block" type="submit" style={{ marginTop: 10 }} disabled={isSearching}>
+          {isSearching && mode === "year" ? <><span className="loader"/> BUSCANDO</> : "VER PEÇAS"}
+        </button>
+      </form>
+
+      {err && <p style={{ color: "#c1121f", fontSize: 12, marginTop: 10 }}>{err}</p>}
+
+      <p className="sel-note">
+        <b style={{ color: isOutline ? "rgba(245,245,245,0.85)" : "var(--ink)" }}>Consultamos FIPE/Denatran pra você</b> —
+        comprar a peça certa, sem achismo.
+      </p>
+    </div>
+  );
+}
+
+// ─── SECTION 1: HERO ──────────────────────────────────────────────
+function Hero({ heroLayout, selectorStyle, heroImage, onSearch, isSearching }) {
   const imgSrc = heroImage === "dust" ? "assets/amarok-dust.webp" : "assets/amarok-static.webp";
   const [loaded, setLoaded] = useState(false);
   useEffect(() => {
@@ -61,72 +134,12 @@ function Hero({ heroLayout, selectorStyle, heroImage, onSearch, isSearching }) {
                target="_blank" rel="noreferrer">
               Prefere falar direto com o vendedor? Chamar no WhatsApp →
             </a>
+            <a className="hero-cta-mobile" href="#buscar">
+              Buscar pela placa →
+            </a>
           </div>
 
-          <div className={`selector ${isOutline ? "is-outline" : ""} ${isFlat ? "is-flat" : ""}`}>
-            <h2 className="sel-title">Encontre o bico certo<br/>pro seu veículo</h2>
-            <p className="sel-small">Consultamos FIPE/Denatran pra você comprar a peça certa.</p>
-
-            <form className="sel-fieldset" onSubmit={submitPlate}>
-              <label>Mais preciso</label>
-              <div className="sel-row">
-                <input
-                  className="sel-input"
-                  type="text"
-                  placeholder="Informe a placa ou chassi"
-                  value={plate}
-                  onChange={(e) => setPlate(e.target.value.toUpperCase())}
-                  maxLength={17}
-                  aria-label="Placa ou chassi"
-                />
-                <button className="btn btn-navy btn-block" type="submit" disabled={isSearching}>
-                  {isSearching && mode === "plate" ? <><span className="loader"/> BUSCANDO</> : "BUSCAR"}
-                </button>
-              </div>
-            </form>
-
-            <div className="divider-or"><span>ou</span></div>
-
-            <form className="sel-fieldset" onSubmit={submitYear}>
-              <label>Selecione</label>
-              <div className="sel-row-2">
-                <select
-                  className="sel-select"
-                  value={year}
-                  onChange={(e) => { setYear(e.target.value); setMotor(""); }}
-                  aria-label="Ano do veículo"
-                >
-                  <option value="">Ano do veículo</option>
-                  {Object.keys(YEAR_VARIANTS).map((y) => (
-                    <option key={y} value={y}>{y}</option>
-                  ))}
-                </select>
-                {year && (
-                  <select
-                    className="sel-select fade-in"
-                    value={motor}
-                    onChange={(e) => setMotor(e.target.value)}
-                    aria-label="Motor"
-                  >
-                    <option value="">Motor (opcional)</option>
-                    {motors.map((m, i) => (
-                      <option key={i} value={m.motor}>{m.motor} — {m.cv}</option>
-                    ))}
-                  </select>
-                )}
-              </div>
-              <button className="btn btn-navy btn-block" type="submit" style={{ marginTop: 10 }} disabled={isSearching}>
-                {isSearching && mode === "year" ? <><span className="loader"/> BUSCANDO</> : "VER PEÇAS"}
-              </button>
-            </form>
-
-            {err && <p style={{ color: "#c1121f", fontSize: 12, marginTop: 10 }}>{err}</p>}
-
-            <p className="sel-note">
-              <b style={{ color: isOutline ? "rgba(245,245,245,0.85)" : "var(--ink)" }}>Consultamos FIPE/Denatran pra você</b> —
-              comprar a peça certa, sem achismo.
-            </p>
-          </div>
+          <Selector onSearch={onSearch} isSearching={isSearching} selectorStyle={selectorStyle} />
         </div>
       </div>
     </section>
@@ -173,7 +186,7 @@ function TrustBar({ style }) {
 // ─── SECTION 3: RESULT ────────────────────────────────────────────
 function ResultPlate({ vehicle }) {
   const p = vehicle.part;
-  const msg = `Olá, vi o bico injetor ${p.oem} pra minha ${vehicle.modelo} ${vehicle.ano} ${vehicle.motor} no site e quero cotar.`;
+  const msg = `Olá, consultei a placa ${vehicle.plate} na landing page e vi o bico injetor ${p.oem} pra minha ${vehicle.modelo} ${vehicle.ano} ${vehicle.motor}. Quero cotar.`;
   return (
     <div className="result-wrap fade-in">
       <div className="result-head">
@@ -297,17 +310,25 @@ function ResultError({ query, message }) {
   );
 }
 
-function ResultSection({ result }) {
-  if (!result) return null;
+function SearchSection({ result, onSearch, isSearching, selectorStyle }) {
+  const hasResult = !!result;
   return (
-    <section className="sec-off sec-pad" id="resultado">
+    <section className={`sec-off sec-pad search-section ${hasResult ? "has-result" : "is-empty"}`} id="buscar">
       <div className="container">
-        <div className="eyebrow" style={{ color: "var(--muted)", marginBottom: 16 }}>Resultado da busca</div>
-        {result.kind === "plate" && result.vehicle && <ResultPlate vehicle={result.vehicle} />}
-        {result.kind === "year" && <ResultYear year={result.year} variants={result.variants} />}
-        {result.kind === "notfound" && <ResultNotFound query={result.query} />}
-        {result.kind === "notamarok" && <ResultNotAmarok vehicle={result.vehicle} query={result.query} message={result.message} />}
-        {result.kind === "error" && <ResultError query={result.query} message={result.message} />}
+        {hasResult ? (
+          <>
+            <div className="eyebrow" style={{ color: "var(--muted)", marginBottom: 16 }}>Resultado da busca</div>
+            {result.kind === "plate" && result.vehicle && <ResultPlate vehicle={result.vehicle} />}
+            {result.kind === "year" && <ResultYear year={result.year} variants={result.variants} />}
+            {result.kind === "notfound" && <ResultNotFound query={result.query} />}
+            {result.kind === "notamarok" && <ResultNotAmarok vehicle={result.vehicle} query={result.query} message={result.message} />}
+            {result.kind === "error" && <ResultError query={result.query} message={result.message} />}
+          </>
+        ) : (
+          <div className="search-section-empty-wrap">
+            <Selector onSearch={onSearch} isSearching={isSearching} selectorStyle={selectorStyle} />
+          </div>
+        )}
       </div>
     </section>
   );
@@ -518,5 +539,5 @@ function Footer() {
 }
 
 Object.assign(window, {
-  Hero, TrustBar, ResultSection, WhySection, Testimonials, FAQ, FinalCTA, Footer,
+  Hero, TrustBar, SearchSection, WhySection, Testimonials, FAQ, FinalCTA, Footer,
 });
