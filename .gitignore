@@ -12,3 +12,8 @@ node_modules/
 amarok-bico-injetor/bundle.js
 amarok-bico-injetor/bundle.js.map
 amarok-bico-injetor/styles.min.css
+
+# Next.js
+.next/
+out/
+next-env.d.ts

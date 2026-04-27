@@ -1,0 +1,4 @@
+/* Reset + globals — styles.css específico da LP Amarok será movido pra cá no passo 5 */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
