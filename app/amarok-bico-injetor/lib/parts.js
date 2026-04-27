@@ -37,6 +37,7 @@ export function resolvePart(motor, ano, cv) {
   return {
     ...defaultPart,
     oem: match.oem.includes('XXX') ? oemUnknown : match.oem,
+    foto: match.foto,
     hasLine1a: !isV6 && CFG.peca.tem_primeira_linha,
     bullets: isV6 && CFG.peca.bullets_v6 ? CFG.peca.bullets_v6 : CFG.peca.bullets_default,
   };

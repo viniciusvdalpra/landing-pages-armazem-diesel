@@ -4,13 +4,17 @@ import { VEICULO_MODELO } from '../lib/parts';
 import { WhatsAppIcon } from './atoms';
 import Selector from './Selector';
 
+function pecaSrc(file) {
+  return `/${CFG.slug}/${file}`;
+}
+
 function ResultPlate({ vehicle }) {
   const p = vehicle.part;
   const msg = fmt(CFG.wa.result_plate_template, {
     plate: vehicle.plate, oem: p.oem,
     modelo: vehicle.modelo, ano: vehicle.ano, motor: vehicle.motor,
   });
-  const fotoSrc = `/amarok-bico-injetor/${CFG.peca.foto_default}`;
+  const fotoSrc = pecaSrc(p.foto || CFG.peca.foto_default);
 
   return (
     <div className="result-wrap fade-in">
@@ -52,7 +56,6 @@ function ResultPlate({ vehicle }) {
 }
 
 function ResultYear({ year, variants }) {
-  const fotoSrc = `/amarok-bico-injetor/${CFG.peca.foto_default}`;
   return (
     <div className="result-wrap fade-in">
       <div className="vehicle-name">{VEICULO_MODELO} {year} — escolha a variação do motor</div>
@@ -60,6 +63,7 @@ function ResultYear({ year, variants }) {
       <div className="variant-grid">
         {variants.map((v, i) => {
           const msg = fmt(CFG.wa.result_year_template, { oem: v.oem, year, motor: v.motor });
+          const fotoSrc = pecaSrc(v.foto || CFG.peca.foto_default);
           return (
             <div className="variant-card" key={i}>
               <div className="variant-photo">
