@@ -1,5 +1,5 @@
 import CFG from '../config.json';
-import OEMS from '../oems.json';
+import OEMS from '@/data/oems.json';
 
 const _veiculo_data = OEMS[CFG.categoria]?.[CFG.veiculo_key];
 if (!_veiculo_data) {
