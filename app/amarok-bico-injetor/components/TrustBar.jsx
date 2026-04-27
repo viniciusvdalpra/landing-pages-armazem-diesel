@@ -5,9 +5,9 @@ import { TrustIcon } from './atoms';
 export default function TrustBar({ style }) {
   const cells = [
     { icon: 'shield', ttl: 'Peças Originais', sub: `OEM ${CFG.peca.fabricante_principal_short}`, num: '100%' },
-    { icon: 'box', ttl: 'Entrega Garantida', sub: 'Rastreada ponta a ponta', num: '48h' },
+    { icon: 'box', ttl: 'Despacho Rápido', sub: 'Saída em até 24h úteis', num: '24h' },
     { icon: 'gear', ttl: 'Compatibilidade Confirmada', sub: 'FIPE/Denatran', num: 'OEM' },
-    { icon: 'factory', ttl: 'Anos de Mercado', sub: 'Chapecó/SC', num: '11' },
+    { icon: 'factory', ttl: 'Bicos Vendidos', sub: 'Pra todo o Brasil', num: '10K+' },
   ];
 
   const ref = useRef(null);

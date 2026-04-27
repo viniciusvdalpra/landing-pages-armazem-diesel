@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import CFG from '../config.json';
-import { waLink } from '../lib/wa';
 import Selector from './Selector';
 
 export default function Hero({ heroLayout, selectorStyle, heroImage, onSearch, isSearching }) {
@@ -29,9 +28,6 @@ export default function Hero({ heroLayout, selectorStyle, heroImage, onSearch, i
               <span className="line-2">{CFG.hero.h1_sub}</span>
             </h1>
             <p className="hero-sub">{CFG.hero.sub}</p>
-            <a className="wa-link" href={waLink(CFG.wa.hero_link)} target="_blank" rel="noreferrer">
-              Prefere falar direto com o vendedor? Chamar no WhatsApp →
-            </a>
             <a className="hero-cta-mobile" href="#buscar">
               <span>{CFG.hero.cta_mobile_label}</span>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -44,13 +40,13 @@ export default function Hero({ heroLayout, selectorStyle, heroImage, onSearch, i
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FF021E" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <polyline points="20 6 9 17 4 12" />
                 </svg>
-                FIPE/Denatran oficial
+                Identifica seu motor pela placa
               </li>
               <li>
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FF021E" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <polyline points="20 6 9 17 4 12" />
                 </svg>
-                NF-e + 7 dias troca
+                Compra com NF-e + troca em 7d
               </li>
               <li>
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FF021E" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
