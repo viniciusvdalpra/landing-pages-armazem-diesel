@@ -74,9 +74,9 @@
     "final_cta": "Olá, quero falar com o vendedor sobre bico injetor pra Hyundai HR."
   },
   "why": {
-    "h2_l1": "HR parada não",
-    "h2_l2": "pode esperar",
-    "h2_l2_red": "peça errada",
+    "h2_l1": "Sua HR parada",
+    "h2_l2": "é prejuízo",
+    "h2_l2_red": "no caixa",
     "items": [
       {
         "num": "01",

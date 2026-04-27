@@ -56,26 +56,48 @@ function ResultPlate({ vehicle }) {
 }
 
 function ResultYear({ year, variants }) {
+  // Agrupa por (motor, cv): 1 card por motor canônico, OEMs alternativos vão em texto pequeno
+  const groupsMap = new Map();
+  variants.forEach((v) => {
+    const key = `${v.motor}|${v.cv}`;
+    if (!groupsMap.has(key)) groupsMap.set(key, { ...v, alternativeOems: [] });
+    else groupsMap.get(key).alternativeOems.push(v.oem);
+  });
+  const groups = Array.from(groupsMap.values());
+
+  const titulo = groups.length > 1
+    ? `${VEICULO_MODELO} ${year} — escolha a variação do motor`
+    : `${VEICULO_MODELO} ${year}`;
+  const subtitulo = groups.length > 1
+    ? 'Selecione o motor do seu veículo para ver a peça exata.'
+    : 'Encontramos a peça compatível com seu motor.';
+
   return (
     <div className="result-wrap fade-in">
-      <div className="vehicle-name">{VEICULO_MODELO} {year} — escolha a variação do motor</div>
-      <div className="vehicle-spec">Selecione o motor do seu veículo para ver a peça exata.</div>
+      <div className="vehicle-name">{titulo}</div>
+      <div className="vehicle-spec">{subtitulo}</div>
       <div className="variant-grid">
-        {variants.map((v, i) => {
-          const msg = fmt(CFG.wa.result_year_template, { oem: v.oem, year, motor: v.motor });
-          const fotoSrc = pecaSrc(v.foto || CFG.peca.foto_default);
+        {groups.map((g, i) => {
+          const msg = fmt(CFG.wa.result_year_template, { oem: g.oem, year, motor: g.motor });
+          const fotoSrc = pecaSrc(g.foto || CFG.peca.foto_default);
           return (
             <div className="variant-card" key={i}>
               <div className="variant-photo">
-                <img src={fotoSrc} alt={`${CFG.peca.nome} ${v.oem}`} loading="lazy" />
+                <img src={fotoSrc} alt={`${CFG.peca.nome} ${g.oem}`} loading="lazy" />
               </div>
-              <div className="v-motor">{v.motor}</div>
-              <div className="v-hp">{v.cv}</div>
+              <div className="v-motor">{g.motor}</div>
+              <div className="v-hp">{g.cv}</div>
               <div className="v-part">
                 <div className="v-part-name">{CFG.peca.short_label}</div>
-                <div className="v-part-oem">Cód. OEM: {v.oem}</div>
+                <div className="v-part-oem">Cód. OEM: {g.oem}</div>
                 <div className="brand-tag" style={{ marginTop: 10 }}>{CFG.peca.fabricante_label}</div>
               </div>
+              {g.alternativeOems.length > 0 && (
+                <div style={{ fontSize: 11, color: 'var(--muted)', marginTop: 10, lineHeight: 1.4 }}>
+                  Variantes alternativas: {g.alternativeOems.join(', ')}.<br />
+                  Confira o nº estampado na sua peça antiga ou chame o vendedor.
+                </div>
+              )}
               <a className="btn btn-navy btn-block" style={{ marginTop: 16 }}
                  href={waLink(msg)} target="_blank" rel="noreferrer">
                 Ver detalhes

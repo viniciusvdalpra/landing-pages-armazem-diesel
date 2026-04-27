@@ -9,7 +9,12 @@ export default function Selector({ onSearch, isSearching, selectorStyle }) {
   const [motor, setMotor] = useState('');
   const [err, setErr] = useState('');
 
-  const motors = year ? YEAR_VARIANTS[parseInt(year, 10)] || [] : [];
+  const allMotors = year ? YEAR_VARIANTS[parseInt(year, 10)] || [] : [];
+  // Dedup por (motor, cv) — quando há múltiplos OEMs pro mesmo motor+cv (ex HR D4CB),
+  // dropdown deve mostrar 1 opção só, não N iguais.
+  const motors = Array.from(
+    new Map(allMotors.map((m) => [`${m.motor}|${m.cv}`, m])).values()
+  );
 
   const submitPlate = (e) => {
     e?.preventDefault();

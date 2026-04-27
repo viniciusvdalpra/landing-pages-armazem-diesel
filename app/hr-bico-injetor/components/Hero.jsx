@@ -4,15 +4,14 @@ import Selector from './Selector';
 
 export default function Hero({ heroLayout, selectorStyle, heroImage, onSearch, isSearching }) {
   const imgSrc = heroImage === 'dust' ? CFG.hero.foto_dust : CFG.hero.foto_static;
+  const bgUrl = `/${CFG.slug}/${imgSrc}`;
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     const img = new Image();
     img.onload = () => setLoaded(true);
-    img.src = imgSrc;
-  }, [imgSrc]);
-
-  const bgUrl = `/amarok-bico-injetor/${imgSrc}`;
+    img.src = bgUrl;
+  }, [bgUrl]);
 
   return (
     <section className={`hero sec-navy sec-pad ${loaded ? 'is-loaded' : ''} ${heroImage === 'dust' ? 'is-dust' : ''}`}>
