@@ -8,11 +8,6 @@ node_modules/
 !.env.example
 *.tmp
 
-# Build artifacts (Vercel regera no build, dev local regera com `npm run build`)
-amarok-bico-injetor/bundle.js
-amarok-bico-injetor/bundle.js.map
-amarok-bico-injetor/styles.min.css
-
 # Next.js
 .next/
 out/
