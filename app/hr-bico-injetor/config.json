@@ -1,0 +1,117 @@
+{
+  "_doc": "Config LP Hyundai HR (apenas). Bongo/K2500/K2700 viram LPs separadas. Perfil Frotista. Bico Delphi 2.5 D4CB CRDi 130cv.",
+  "slug": "hr-bico-injetor",
+  "categoria": "bico-injetor",
+  "veiculo_key": "hr",
+  "veiculo": {
+    "marca_aliases": [
+      "HYUNDAI"
+    ],
+    "modelo_aliases": [
+      "HR"
+    ],
+    "motor_por_cv": {
+      "130": "2.5 D4CB CRDi"
+    }
+  },
+  "hero": {
+    "eyebrow": "SUA FROTA NÃO PARA. ENTREGA GARANTIDA.",
+    "h1_linha1": "BICO INJETOR",
+    "h1_linha2": "HYUNDAI HR",
+    "h1_sub": "OEM Delphi · pronta entrega",
+    "sub": "Para Hyundai HR 2.5 D4CB CRDi.",
+    "foto_static": "assets/hero-static.webp",
+    "foto_dust": "assets/hero-static.webp",
+    "foto_alt": "Hyundai HR baú branco em galpão de logística",
+    "bg_position_mobile": "50% 50%",
+    "bg_position_desktop": "center center",
+    "cta_mobile_label": "Achar o bico certo"
+  },
+  "selector": {
+    "titulo_l1": "Encontre o bico certo",
+    "titulo_l2": "pra sua HR",
+    "subtexto": "Consultamos FIPE/Denatran pra você comprar a peça certa."
+  },
+  "peca": {
+    "nome": "BICO INJETOR DELPHI",
+    "short_label": "BICO DELPHI",
+    "fabricante_label": "OEM DELPHI",
+    "fabricante_principal_short": "Delphi",
+    "fabricantes_aceitos": [
+      "Delphi"
+    ],
+    "foto_default": "assets/peca.webp",
+    "foto_alt": "Bico injetor Delphi original na caixa",
+    "tem_primeira_linha": true,
+    "v6_disponibilidade_limitada": false,
+    "bullets_default": [
+      "Peça original de fábrica",
+      "Garantia Delphi",
+      "Pronta entrega de Chapecó/SC pra todo Brasil"
+    ],
+    "bullets_v6": [],
+    "bullets_unknown": [
+      "Peça compatível com sua HR",
+      "Entrega de Chapecó/SC pra todo Brasil",
+      "Garantia de fábrica + Armazém"
+    ]
+  },
+  "result_messages": {
+    "default_oem_unknown": "Consulte no WhatsApp",
+    "hint_primeira_linha_bold": "Também temos versão primeira linha",
+    "hint_primeira_linha_tail": "com preço mais acessível pra frota. Consulte no WhatsApp.",
+    "not_supported_default": "Esta LP é específica para Hyundai HR. Fale com a gente no WhatsApp pra consultar peças do seu veículo."
+  },
+  "wa": {
+    "hero_link": "Olá, preciso de bico injetor pra Hyundai HR.",
+    "fab_default": "Olá, cheguei pela landing page e quero falar sobre bico injetor pra Hyundai HR.",
+    "result_plate_template": "Olá, consultei a placa {plate} na landing page e vi o bico injetor {oem} pra minha HR {ano} {motor}. Quero cotar.",
+    "result_year_template": "Olá, quero cotar o bico injetor {oem} pra Hyundai HR {year} {motor}.",
+    "result_dontknow_motor": "Olá, não sei qual é o motor da minha HR. Podem me ajudar?",
+    "result_notfound_template": "Olá, tentei buscar {query} na landing page e não encontrou. Podem me ajudar?",
+    "result_notsupported_template": "Olá, consultei {query} na landing page HR e meu veículo é {ident}. Podem me ajudar a encontrar a peça?",
+    "result_error_template": "Olá, tentei consultar {query} na landing page HR e deu erro. Podem me ajudar?",
+    "final_cta": "Olá, quero falar com o vendedor sobre bico injetor pra Hyundai HR."
+  },
+  "why": {
+    "h2_l1": "Sua HR parada",
+    "h2_l2": "é prejuízo",
+    "h2_l2_red": "no caixa",
+    "items": [
+      {
+        "num": "01",
+        "ttl": "Compatibilidade que não erra.",
+        "body": "Nosso sistema cruza placa com FIPE/Denatran. Você compra o bico certo pro motor certo, no ano certo. Sua HR volta a rodar mais rápido."
+      },
+      {
+        "num": "02",
+        "ttl": "OEM Delphi homologado.",
+        "body": "Delphi — marca homologada pelo motor D4CB. Códigos OEM confirmados. Quando disponível, primeira linha de qualidade equivalente, com garantia."
+      },
+      {
+        "num": "03",
+        "ttl": "Despacho 24h pra frota.",
+        "body": "Estoque em Chapecó/SC. Saída direta pra transportadora no mesmo dia útil da confirmação. Sua HR não fica parada esperando peça."
+      }
+    ]
+  },
+  "final_cta": {
+    "h2_l1": "Pronto pra",
+    "h2_l2_red_l1": "voltar",
+    "h2_l2_red_l2": "a rodar",
+    "sub_pre": "Insira a placa no",
+    "sub_anchor": "seletor acima",
+    "sub_post": "ou chame direto no WhatsApp.",
+    "btn": "Falar com o vendedor agora",
+    "microtext_pre": "WhatsApp",
+    "microtext_post": "— resposta em minutos, de segunda a sexta."
+  },
+  "seo": {
+    "title": "Bico Injetor Hyundai HR — Armazém Auto Peças",
+    "description": "Bico injetor Delphi original para Hyundai HR motor 2.5 D4CB CRDi. Identificamos seu motor pela placa ou chassi. Despacho 24h. Compra segura.",
+    "og_image": "assets/hero-static.png",
+    "og_image_alt": "Hyundai HR baú branco em galpão de logística",
+    "twitter_description": "Bico injetor Delphi para Hyundai HR motor 2.5 D4CB CRDi.",
+    "canonical_path": "/hr-bico-injetor/"
+  }
+}

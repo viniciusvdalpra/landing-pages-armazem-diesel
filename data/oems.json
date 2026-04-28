@@ -7,48 +7,374 @@
         "modelo": "Amarok"
       },
       "variants_por_ano": {
-        "2010": [{ "motor": "2.0 TDI", "cv": "140cv", "oem": "0 445 110 XXX" }],
-        "2011": [{ "motor": "2.0 TDI", "cv": "140cv", "oem": "0 445 110 XXX" }],
+        "2010": [
+          {
+            "motor": "2.0 TDI",
+            "cv": "140cv",
+            "oem": "0 445 110 XXX"
+          }
+        ],
+        "2011": [
+          {
+            "motor": "2.0 TDI",
+            "cv": "140cv",
+            "oem": "0 445 110 XXX"
+          }
+        ],
         "2012": [
-          { "motor": "2.0 TDI Biturbo", "cv": "163cv", "oem": "0 445 110 369" },
-          { "motor": "2.0 TDI", "cv": "140cv", "oem": "0 445 110 XXX" }
+          {
+            "motor": "2.0 TDI Biturbo",
+            "cv": "163cv",
+            "oem": "0 445 110 369"
+          },
+          {
+            "motor": "2.0 TDI",
+            "cv": "140cv",
+            "oem": "0 445 110 XXX"
+          }
         ],
         "2013": [
-          { "motor": "2.0 TDI Biturbo", "cv": "180cv", "oem": "0 445 110 369" },
-          { "motor": "2.0 TDI", "cv": "140cv / 163cv", "oem": "0 445 110 XXX" }
+          {
+            "motor": "2.0 TDI Biturbo",
+            "cv": "180cv",
+            "oem": "0 445 110 369"
+          },
+          {
+            "motor": "2.0 TDI",
+            "cv": "140cv / 163cv",
+            "oem": "0 445 110 XXX"
+          }
         ],
         "2014": [
-          { "motor": "2.0 TDI Biturbo", "cv": "180cv", "oem": "0 445 110 369" },
-          { "motor": "2.0 TDI", "cv": "140cv / 163cv", "oem": "0 445 110 XXX" }
+          {
+            "motor": "2.0 TDI Biturbo",
+            "cv": "180cv",
+            "oem": "0 445 110 369"
+          },
+          {
+            "motor": "2.0 TDI",
+            "cv": "140cv / 163cv",
+            "oem": "0 445 110 XXX"
+          }
         ],
         "2015": [
-          { "motor": "2.0 TDI Biturbo", "cv": "180cv", "oem": "0 445 110 369" },
-          { "motor": "2.0 TDI", "cv": "140cv / 163cv", "oem": "0 445 110 XXX" }
+          {
+            "motor": "2.0 TDI Biturbo",
+            "cv": "180cv",
+            "oem": "0 445 110 369"
+          },
+          {
+            "motor": "2.0 TDI",
+            "cv": "140cv / 163cv",
+            "oem": "0 445 110 XXX"
+          }
         ],
         "2016": [
-          { "motor": "2.0 TDI Biturbo", "cv": "180cv", "oem": "0 445 110 369" },
-          { "motor": "2.0 TDI", "cv": "140cv / 163cv", "oem": "0 445 110 XXX" }
+          {
+            "motor": "2.0 TDI Biturbo",
+            "cv": "180cv",
+            "oem": "0 445 110 369"
+          },
+          {
+            "motor": "2.0 TDI",
+            "cv": "140cv / 163cv",
+            "oem": "0 445 110 XXX"
+          }
         ],
         "2017": [
-          { "motor": "3.0 V6 TDI", "cv": "224cv", "oem": "0 445 117 021" },
-          { "motor": "2.0 TDI Biturbo", "cv": "180cv", "oem": "0 445 110 369" }
+          {
+            "motor": "3.0 V6 TDI",
+            "cv": "224cv",
+            "oem": "0 445 117 021"
+          },
+          {
+            "motor": "2.0 TDI Biturbo",
+            "cv": "180cv",
+            "oem": "0 445 110 369"
+          }
         ],
         "2018": [
-          { "motor": "3.0 V6 TDI", "cv": "224cv", "oem": "0 445 117 021" },
-          { "motor": "2.0 TDI Biturbo", "cv": "180cv", "oem": "0 445 110 369" }
+          {
+            "motor": "3.0 V6 TDI",
+            "cv": "224cv",
+            "oem": "0 445 117 021"
+          },
+          {
+            "motor": "2.0 TDI Biturbo",
+            "cv": "180cv",
+            "oem": "0 445 110 369"
+          }
         ],
         "2019": [
-          { "motor": "3.0 V6 TDI", "cv": "224cv", "oem": "0 445 117 021" },
-          { "motor": "2.0 TDI Biturbo", "cv": "180cv", "oem": "0 445 110 369" }
+          {
+            "motor": "3.0 V6 TDI",
+            "cv": "224cv",
+            "oem": "0 445 117 021"
+          },
+          {
+            "motor": "2.0 TDI Biturbo",
+            "cv": "180cv",
+            "oem": "0 445 110 369"
+          }
         ],
         "2020": [
-          { "motor": "3.0 V6 TDI", "cv": "258cv", "oem": "0 445 117 021" },
-          { "motor": "2.0 TDI Biturbo", "cv": "180cv", "oem": "0 445 110 369" }
+          {
+            "motor": "3.0 V6 TDI",
+            "cv": "258cv",
+            "oem": "0 445 117 021"
+          },
+          {
+            "motor": "2.0 TDI Biturbo",
+            "cv": "180cv",
+            "oem": "0 445 110 369"
+          }
         ],
-        "2021": [{ "motor": "3.0 V6 TDI", "cv": "258cv", "oem": "0 445 117 021" }],
-        "2022": [{ "motor": "3.0 V6 TDI", "cv": "258cv", "oem": "0 445 117 021" }],
-        "2023": [{ "motor": "3.0 V6 TDI", "cv": "258cv", "oem": "0 445 117 021" }],
-        "2024": [{ "motor": "3.0 V6 TDI", "cv": "258cv", "oem": "0 445 117 021" }]
+        "2021": [
+          {
+            "motor": "3.0 V6 TDI",
+            "cv": "258cv",
+            "oem": "0 445 117 021"
+          }
+        ],
+        "2022": [
+          {
+            "motor": "3.0 V6 TDI",
+            "cv": "258cv",
+            "oem": "0 445 117 021"
+          }
+        ],
+        "2023": [
+          {
+            "motor": "3.0 V6 TDI",
+            "cv": "258cv",
+            "oem": "0 445 117 021"
+          }
+        ],
+        "2024": [
+          {
+            "motor": "3.0 V6 TDI",
+            "cv": "258cv",
+            "oem": "0 445 117 021"
+          }
+        ]
+      }
+    },
+    "hr": {
+      "veiculo": {
+        "marca": "HYUNDAI",
+        "modelo": "HR"
+      },
+      "variants_por_ano": {
+        "2012": [
+          {
+            "motor": "2.5 D4CB CRDi",
+            "cv": 130,
+            "oem": "KS.28229873",
+            "marca_bico": "Delphi"
+          },
+          {
+            "motor": "2.5 D4CB CRDi",
+            "cv": 130,
+            "oem": "338004A710",
+            "marca_bico": "Delphi"
+          }
+        ],
+        "2013": [
+          {
+            "motor": "2.5 D4CB CRDi",
+            "cv": 130,
+            "oem": "KS.28229873",
+            "marca_bico": "Delphi"
+          },
+          {
+            "motor": "2.5 D4CB CRDi",
+            "cv": 130,
+            "oem": "338004A710",
+            "marca_bico": "Delphi"
+          }
+        ],
+        "2014": [
+          {
+            "motor": "2.5 D4CB CRDi",
+            "cv": 130,
+            "oem": "KS.28229873",
+            "marca_bico": "Delphi"
+          },
+          {
+            "motor": "2.5 D4CB CRDi",
+            "cv": 130,
+            "oem": "338004A710",
+            "marca_bico": "Delphi"
+          }
+        ],
+        "2015": [
+          {
+            "motor": "2.5 D4CB CRDi",
+            "cv": 130,
+            "oem": "KS.28229873",
+            "marca_bico": "Delphi"
+          },
+          {
+            "motor": "2.5 D4CB CRDi",
+            "cv": 130,
+            "oem": "338004A710",
+            "marca_bico": "Delphi"
+          }
+        ],
+        "2016": [
+          {
+            "motor": "2.5 D4CB CRDi",
+            "cv": 130,
+            "oem": "KS.28229873",
+            "marca_bico": "Delphi"
+          },
+          {
+            "motor": "2.5 D4CB CRDi",
+            "cv": 130,
+            "oem": "338004A710",
+            "marca_bico": "Delphi"
+          }
+        ],
+        "2017": [
+          {
+            "motor": "2.5 D4CB CRDi",
+            "cv": 130,
+            "oem": "KS.28229873",
+            "marca_bico": "Delphi"
+          },
+          {
+            "motor": "2.5 D4CB CRDi",
+            "cv": 130,
+            "oem": "338004A710",
+            "marca_bico": "Delphi"
+          }
+        ],
+        "2018": [
+          {
+            "motor": "2.5 D4CB CRDi",
+            "cv": 130,
+            "oem": "KS.28229873",
+            "marca_bico": "Delphi"
+          },
+          {
+            "motor": "2.5 D4CB CRDi",
+            "cv": 130,
+            "oem": "338004A710",
+            "marca_bico": "Delphi"
+          }
+        ],
+        "2019": [
+          {
+            "motor": "2.5 D4CB CRDi",
+            "cv": 130,
+            "oem": "KS.28229873",
+            "marca_bico": "Delphi"
+          },
+          {
+            "motor": "2.5 D4CB CRDi",
+            "cv": 130,
+            "oem": "338004A710",
+            "marca_bico": "Delphi"
+          }
+        ],
+        "2020": [
+          {
+            "motor": "2.5 D4CB CRDi",
+            "cv": 130,
+            "oem": "KS.28229873",
+            "marca_bico": "Delphi"
+          },
+          {
+            "motor": "2.5 D4CB CRDi",
+            "cv": 130,
+            "oem": "338004A710",
+            "marca_bico": "Delphi"
+          }
+        ],
+        "2021": [
+          {
+            "motor": "2.5 D4CB CRDi",
+            "cv": 130,
+            "oem": "KS.28229873",
+            "marca_bico": "Delphi"
+          },
+          {
+            "motor": "2.5 D4CB CRDi",
+            "cv": 130,
+            "oem": "338004A710",
+            "marca_bico": "Delphi"
+          }
+        ],
+        "2022": [
+          {
+            "motor": "2.5 D4CB CRDi",
+            "cv": 130,
+            "oem": "KS.28229873",
+            "marca_bico": "Delphi"
+          },
+          {
+            "motor": "2.5 D4CB CRDi",
+            "cv": 130,
+            "oem": "338004A710",
+            "marca_bico": "Delphi"
+          }
+        ],
+        "2023": [
+          {
+            "motor": "2.5 D4CB CRDi",
+            "cv": 130,
+            "oem": "KS.28229873",
+            "marca_bico": "Delphi"
+          },
+          {
+            "motor": "2.5 D4CB CRDi",
+            "cv": 130,
+            "oem": "338004A710",
+            "marca_bico": "Delphi"
+          }
+        ],
+        "2024": [
+          {
+            "motor": "2.5 D4CB CRDi",
+            "cv": 130,
+            "oem": "KS.28229873",
+            "marca_bico": "Delphi"
+          },
+          {
+            "motor": "2.5 D4CB CRDi",
+            "cv": 130,
+            "oem": "338004A710",
+            "marca_bico": "Delphi"
+          }
+        ],
+        "2025": [
+          {
+            "motor": "2.5 D4CB CRDi",
+            "cv": 130,
+            "oem": "KS.28229873",
+            "marca_bico": "Delphi"
+          },
+          {
+            "motor": "2.5 D4CB CRDi",
+            "cv": 130,
+            "oem": "338004A710",
+            "marca_bico": "Delphi"
+          }
+        ],
+        "2026": [
+          {
+            "motor": "2.5 D4CB CRDi",
+            "cv": 130,
+            "oem": "KS.28229873",
+            "marca_bico": "Delphi"
+          },
+          {
+            "motor": "2.5 D4CB CRDi",
+            "cv": 130,
+            "oem": "338004A710",
+            "marca_bico": "Delphi"
+          }
+        ]
       }
     }
   }
