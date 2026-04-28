@@ -75,7 +75,7 @@ export default function Page() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <link rel="preload" as="image" href="/amarok-bico-injetor/assets/amarok-static.webp" type="image/webp" fetchPriority="high" />
+      <link rel="preload" as="image" href={`/${CFG.slug}/${CFG.hero.foto_static}`} type="image/webp" fetchPriority="high" />
       <LandingClient />
     </>
   );
