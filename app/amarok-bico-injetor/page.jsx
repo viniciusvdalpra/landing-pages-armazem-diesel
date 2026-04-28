@@ -75,6 +75,7 @@ export default function Page() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+      <link rel="preload" as="font" type="font/woff2" crossOrigin="" href={`/${CFG.slug}/assets/fonts/fC1_PZJEZG-e9gHhdI4-NBbfd2ys3SjJCx1czNDu.woff2`} />
       <link rel="preload" as="image" href={`/${CFG.slug}/${CFG.hero.foto_static}`} type="image/webp" fetchPriority="high" />
       <LandingClient />
     </>
