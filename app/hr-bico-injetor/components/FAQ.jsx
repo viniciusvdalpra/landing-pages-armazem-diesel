@@ -1,5 +1,8 @@
 import { useState } from 'react';
-import { FAQS } from '../lib/content';
+import CFG from '../config.json';
+import { getContent } from '@/lib/content';
+
+const { FAQS } = getContent(CFG);
 
 export default function FAQ() {
   const [open, setOpen] = useState(0);

@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
-import { TESTIMONIALS } from '../lib/content';
+import CFG from '../config.json';
+import { getContent } from '@/lib/content';
 import { Star } from './atoms';
+
+const { TESTIMONIALS } = getContent(CFG);
 
 export default function Testimonials() {
   const [idx, setIdx] = useState(0);
