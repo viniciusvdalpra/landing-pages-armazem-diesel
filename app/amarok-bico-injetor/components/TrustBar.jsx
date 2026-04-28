@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import CFG from '../config.json';
+import { STORE_INFO } from '@/lib/content';
 import { TrustIcon } from './atoms';
 
 export default function TrustBar({ style }) {
@@ -7,7 +8,7 @@ export default function TrustBar({ style }) {
     { icon: 'shield', ttl: 'Peças Originais', sub: `OEM ${CFG.peca.fabricante_principal_short}`, num: '100%' },
     { icon: 'box', ttl: 'Despacho Rápido', sub: 'Saída em até 24h úteis', num: '24h' },
     { icon: 'gear', ttl: 'Compatibilidade Confirmada', sub: 'FIPE/Denatran', num: 'OEM' },
-    { icon: 'factory', ttl: 'Bicos Vendidos', sub: 'Pra todo o Brasil', num: '10K+' },
+    { icon: 'star', ttl: `${STORE_INFO.google_rating_label} no Google`, sub: STORE_INFO.google_count_label, num: `${STORE_INFO.google_rating_label}★` },
   ];
 
   const ref = useRef(null);

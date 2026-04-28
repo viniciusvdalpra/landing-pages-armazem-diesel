@@ -1,4 +1,5 @@
 import CFG from './config.json';
+import { STORE_INFO, STORE_REVIEWS_JSONLD } from '@/lib/content';
 import './styles.css';
 import LandingClient from './LandingClient';
 
@@ -46,6 +47,14 @@ const jsonLd = {
         addressCountry: 'BR',
       },
       sameAs: ['https://wa.me/5549999484754'],
+      aggregateRating: {
+        '@type': 'AggregateRating',
+        ratingValue: STORE_INFO.google_rating,
+        reviewCount: STORE_INFO.google_count,
+        bestRating: 5,
+        worstRating: 1,
+      },
+      review: STORE_REVIEWS_JSONLD,
     },
     {
       '@type': 'Product',

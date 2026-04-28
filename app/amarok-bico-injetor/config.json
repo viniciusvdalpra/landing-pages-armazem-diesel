@@ -125,5 +125,25 @@
     "og_image_alt": "VW Amarok preta em ângulo frontal",
     "twitter_description": "Bico injetor Bosch original ou primeira linha para VW Amarok 2.0 TDI e 3.0 V6.",
     "canonical_path": "/amarok-bico-injetor/"
+  },
+
+  "content": {
+    "testimonials": [
+      {
+        "q": "Comprei um bico injetor pra minha Amarok com o Vilmar, cara super gente boa e me atendeu muito bem! Produto chegou super rápido e bem embalado. Recomendo.",
+        "name": "Diego Bernardi",
+        "role": "Avaliação no Google · Bico injetor Amarok"
+      },
+      {
+        "q": "Comprei na quinta-feira e chegou ontem. Paguei 90 reais a mais pra vir pela Azul, compensou demais e chegou muito antes do previsto. Já estou com o carro, e olha que estou em Goiânia.",
+        "name": "Lucio Oliveira",
+        "role": "Goiânia/GO · Avaliação no Google"
+      },
+      {
+        "q": "Podem confiar sem medo. Peças do motor do meu carro chegou certinho no prazo combinado, atendentes atenciosos. Foi o único lugar que encontrei a peça original que eu precisava. Recomendo!",
+        "name": "Ellen Karoline",
+        "role": "Avaliação no Google"
+      }
+    ]
   }
 }
