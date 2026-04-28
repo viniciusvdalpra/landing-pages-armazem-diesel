@@ -113,5 +113,25 @@
     "og_image_alt": "Hyundai HR baú branco em galpão de logística",
     "twitter_description": "Bico injetor Delphi para Hyundai HR motor 2.5 D4CB CRDi.",
     "canonical_path": "/hr-bico-injetor/"
+  },
+
+  "content": {
+    "testimonials": [
+      {
+        "q": "Parabéns amigo Vandersom, excelente atendimento. Confesso que fiquei apreensivo a princípio, peça cara, mas aí no Armazém o preço estava bem melhor. Fiz o pix na sexta, a peça chegou na segunda ORIGINAL! Já foi instalada, ficou perfeito. Ganhou um bom cliente.",
+        "name": "Ton Raphaeli",
+        "role": "Automaticar Londrina/PR · Avaliação no Google"
+      },
+      {
+        "q": "Olá, me chamo Marcelo, sou de Erechim/RS. Fiz uma compra de uma peça na loja e fui muito bem atendido. A peça veio corretamente e era de qualidade. Com certeza voltarei a comprar novamente. Super indico a loja.",
+        "name": "Marcelo Monteiro",
+        "role": "Erechim/RS · Avaliação no Google"
+      },
+      {
+        "q": "Comprei na quinta-feira e chegou ontem. Paguei 90 reais a mais pra vir pela Azul, compensou demais e chegou muito antes do previsto. Já estou com o carro, e olha que estou em Goiânia.",
+        "name": "Lucio Oliveira",
+        "role": "Goiânia/GO · Avaliação no Google"
+      }
+    ]
   }
 }
