@@ -138,19 +138,28 @@ export async function POST(req) {
   const payload = kind === 'placa' ? { placa: query } : { chassi: query };
 
   let raw;
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 5000);
   try {
     const r = await fetch(webhookUrl, {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify(payload),
+      signal: controller.signal,
     });
     if (!r.ok) {
       return Response.json({ error: 'upstream_error', status: r.status }, { status: 502 });
     }
     raw = await r.json();
   } catch (e) {
+    if (e?.name === 'AbortError') {
+      console.error('webhook_fetch_timeout', { kind, query });
+      return Response.json({ error: 'upstream_timeout' }, { status: 504 });
+    }
     console.error('webhook_fetch_error', e);
     return Response.json({ error: 'upstream_unreachable' }, { status: 502 });
+  } finally {
+    clearTimeout(timeoutId);
   }
 
   const data = extractPayload(raw);
