@@ -9,6 +9,12 @@ if (!_veiculo_data) {
 export const YEAR_VARIANTS = _veiculo_data.variants_por_ano;
 export const VEICULO_MODELO = _veiculo_data.veiculo.modelo;
 
+function resolveEquivalentes(motor) {
+  const map = CFG.peca?.equivalentes_por_motor;
+  if (!map || !motor) return [];
+  return map[motor] || [];
+}
+
 export function resolvePart(motor, ano, cv) {
   const oemUnknown = CFG.result_messages.default_oem_unknown;
   const defaultPart = {
@@ -17,20 +23,17 @@ export function resolvePart(motor, ano, cv) {
     brand: CFG.peca.fabricante_label,
     bullets: CFG.peca.bullets_unknown,
     hasLine1a: CFG.peca.tem_primeira_linha,
+    equivalentes: [],
   };
   const variants = YEAR_VARIANTS[ano] || [];
   if (!variants.length) return defaultPart;
 
   const motorUp = String(motor || '').toUpperCase();
   const cvNum = parseInt(cv, 10) || 0;
-  let match;
-  if (motorUp.includes('V6') || motorUp.includes('3.0') || cvNum >= 224) {
-    match = variants.find((v) => v.motor.toUpperCase().includes('V6'));
-  } else if (motorUp.includes('BITURBO') || motorUp.includes('BI-TURBO') || motorUp.includes('BI TURBO') || cvNum >= 170) {
-    match = variants.find((v) => v.motor.toUpperCase().includes('BITURBO'));
-  } else {
-    match = variants.find((v) => !v.motor.toUpperCase().includes('BITURBO') && !v.motor.toUpperCase().includes('V6')) || variants[0];
-  }
+  const isV6Hint = motorUp.includes('V6') || motorUp.includes('3.0') || cvNum >= 220;
+
+  let match = isV6Hint ? variants.find((v) => v.motor.toUpperCase().includes('V6')) : null;
+  if (!match) match = variants.find((v) => !v.motor.toUpperCase().includes('V6')) || variants[0];
   if (!match) return defaultPart;
 
   const isV6 = match.motor.toUpperCase().includes('V6');
@@ -39,6 +42,8 @@ export function resolvePart(motor, ano, cv) {
     oem: match.oem.includes('XXX') ? oemUnknown : match.oem,
     foto: match.foto,
     marca_bico: match.marca_bico,
+    motor: match.motor,
+    equivalentes: resolveEquivalentes(match.motor),
     hasLine1a: !isV6 && CFG.peca.tem_primeira_linha,
     bullets: isV6 && CFG.peca.bullets_v6 ? CFG.peca.bullets_v6 : CFG.peca.bullets_default,
   };
