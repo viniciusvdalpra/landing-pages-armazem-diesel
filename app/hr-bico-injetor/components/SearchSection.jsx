@@ -8,13 +8,21 @@ function pecaSrc(file) {
   return `/${CFG.slug}/${file}`;
 }
 
+// Resolve foto da peça com prioridade: variant.foto > foto_por_marca[marca_bico] > foto_default
+function resolvePecaFoto(variant) {
+  if (variant?.foto) return variant.foto;
+  const map = CFG.peca?.foto_por_marca;
+  if (map && variant?.marca_bico && map[variant.marca_bico]) return map[variant.marca_bico];
+  return CFG.peca.foto_default;
+}
+
 function ResultPlate({ vehicle }) {
   const p = vehicle.part;
   const msg = fmt(CFG.wa.result_plate_template, {
     plate: vehicle.plate, oem: p.oem,
     modelo: vehicle.modelo, ano: vehicle.ano, motor: vehicle.motor,
   });
-  const fotoSrc = pecaSrc(p.foto || CFG.peca.foto_default);
+  const fotoSrc = pecaSrc(resolvePecaFoto(p));
 
   return (
     <div className="result-wrap fade-in">
@@ -35,7 +43,7 @@ function ResultPlate({ vehicle }) {
         </div>
         <div>
           <div className="part-title">{p.name}</div>
-          <div className="part-oem">Cód. OEM: {p.oem}</div>
+          <div className="part-oem">Cód. OEM: {p.oem}{p.marca_bico ? ` · ${p.marca_bico}` : ''}</div>
           <div className="brand-tag">{p.brand}</div>
           <ul className="part-bullets">
             {p.bullets.map((b, i) => <li key={i}>{b}</li>)}
@@ -79,7 +87,7 @@ function ResultYear({ year, variants }) {
       <div className="variant-grid">
         {groups.map((g, i) => {
           const msg = fmt(CFG.wa.result_year_template, { oem: g.oem, year, motor: g.motor });
-          const fotoSrc = pecaSrc(g.foto || CFG.peca.foto_default);
+          const fotoSrc = pecaSrc(resolvePecaFoto(g));
           return (
             <div className="variant-card" key={i}>
               <div className="variant-photo">
@@ -89,7 +97,7 @@ function ResultYear({ year, variants }) {
               <div className="v-hp">{g.cv}</div>
               <div className="v-part">
                 <div className="v-part-name">{CFG.peca.short_label}</div>
-                <div className="v-part-oem">Cód. OEM: {g.oem}</div>
+                <div className="v-part-oem">Cód. OEM: {g.oem}{g.marca_bico ? ` · ${g.marca_bico}` : ''}</div>
                 <div className="brand-tag" style={{ marginTop: 10 }}>{CFG.peca.fabricante_label}</div>
               </div>
               {g.alternativeOems.length > 0 && (
