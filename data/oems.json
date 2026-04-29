@@ -323,56 +323,56 @@
           {
             "motor": "2.5 D4CB CRDi",
             "cv": 130,
-            "oem": "KS.28229873",
-            "marca_bico": "Delphi"
+            "oem": "0445110993",
+            "marca_bico": "Bosch"
           },
           {
             "motor": "2.5 D4CB CRDi",
             "cv": 130,
-            "oem": "338004A710",
-            "marca_bico": "Delphi"
+            "oem": "338004A200",
+            "marca_bico": "Bosch"
           }
         ],
         "2024": [
           {
             "motor": "2.5 D4CB CRDi",
             "cv": 130,
-            "oem": "KS.28229873",
-            "marca_bico": "Delphi"
+            "oem": "0445110993",
+            "marca_bico": "Bosch"
           },
           {
             "motor": "2.5 D4CB CRDi",
             "cv": 130,
-            "oem": "338004A710",
-            "marca_bico": "Delphi"
+            "oem": "338004A200",
+            "marca_bico": "Bosch"
           }
         ],
         "2025": [
           {
             "motor": "2.5 D4CB CRDi",
             "cv": 130,
-            "oem": "KS.28229873",
-            "marca_bico": "Delphi"
+            "oem": "0445110993",
+            "marca_bico": "Bosch"
           },
           {
             "motor": "2.5 D4CB CRDi",
             "cv": 130,
-            "oem": "338004A710",
-            "marca_bico": "Delphi"
+            "oem": "338004A200",
+            "marca_bico": "Bosch"
           }
         ],
         "2026": [
           {
             "motor": "2.5 D4CB CRDi",
             "cv": 130,
-            "oem": "KS.28229873",
-            "marca_bico": "Delphi"
+            "oem": "0445110993",
+            "marca_bico": "Bosch"
           },
           {
             "motor": "2.5 D4CB CRDi",
             "cv": 130,
-            "oem": "338004A710",
-            "marca_bico": "Delphi"
+            "oem": "338004A200",
+            "marca_bico": "Bosch"
           }
         ]
       }

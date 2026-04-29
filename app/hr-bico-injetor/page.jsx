@@ -49,13 +49,15 @@ const jsonLd = {
     },
     {
       '@type': 'Product',
-      name: 'Bico Injetor Bosch para VW Amarok 2.0 TDI e 3.0 V6',
-      description: 'Bico injetor original Bosch ou primeira linha para VW Amarok 2.0 TDI (140cv/163cv/180cv Biturbo) e 3.0 V6 TDI (224cv/258cv), anos 2010-2024. Código OEM confirmado por consulta FIPE/Denatran.',
-      brand: { '@type': 'Brand', name: 'Bosch' },
+      name: 'Bico Injetor para Hyundai HR 2.5 D4CB CRDi',
+      description: 'Bico injetor original para Hyundai HR 2.5 D4CB CRDi (130cv) — Delphi (até 2022) e Bosch (2023+ Euro 6 com Arla), anos 2012-2026. Códigos OEM confirmados por consulta FIPE/Denatran.',
+      brand: [
+        { '@type': 'Brand', name: 'Delphi' },
+        { '@type': 'Brand', name: 'Bosch' },
+      ],
       category: 'Peça automotiva — sistema de injeção diesel',
       isRelatedTo: [
-        { '@type': 'Vehicle', name: 'Volkswagen Amarok 2.0 TDI' },
-        { '@type': 'Vehicle', name: 'Volkswagen Amarok 3.0 V6 TDI' },
+        { '@type': 'Vehicle', name: 'Hyundai HR 2.5 D4CB CRDi' },
       ],
       offers: {
         '@type': 'Offer',

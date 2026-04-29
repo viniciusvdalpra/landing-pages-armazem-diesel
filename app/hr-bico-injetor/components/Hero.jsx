@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react';
 import CFG from '../config.json';
+import { getFabricanteLabel } from '@/lib/content';
 import Selector from './Selector';
 
 export default function Hero({ heroLayout, selectorStyle, heroImage, onSearch, isSearching }) {
   const imgSrc = heroImage === 'dust' ? CFG.hero.foto_dust : CFG.hero.foto_static;
   const bgUrl = `/${CFG.slug}/${imgSrc}`;
   const [loaded, setLoaded] = useState(false);
+  const fabricante = getFabricanteLabel(CFG);
+  const garantiaLabel = fabricante ? `GARANTIA ${fabricante.toUpperCase()}` : 'GARANTIA DE FÁBRICA';
 
   useEffect(() => {
     const img = new Image();
@@ -45,7 +48,7 @@ export default function Hero({ heroLayout, selectorStyle, heroImage, onSearch, i
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FF021E" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <polyline points="20 6 9 17 4 12" />
                 </svg>
-                GARANTIA {CFG.peca.fabricante_principal_short.toUpperCase()}
+                {garantiaLabel}
               </li>
               <li>
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FF021E" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">

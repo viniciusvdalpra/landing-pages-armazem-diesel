@@ -35,7 +35,7 @@ function ResultPlate({ vehicle }) {
         </div>
         <div>
           <div className="part-title">{p.name}</div>
-          <div className="part-oem">Cód. OEM: {p.oem}</div>
+          <div className="part-oem">Cód. OEM: {p.oem}{p.marca_bico ? ` · ${p.marca_bico}` : ''}</div>
           <div className="brand-tag">{p.brand}</div>
           <ul className="part-bullets">
             {p.bullets.map((b, i) => <li key={i}>{b}</li>)}
@@ -89,7 +89,7 @@ function ResultYear({ year, variants }) {
               <div className="v-hp">{g.cv}</div>
               <div className="v-part">
                 <div className="v-part-name">{CFG.peca.short_label}</div>
-                <div className="v-part-oem">Cód. OEM: {g.oem}</div>
+                <div className="v-part-oem">Cód. OEM: {g.oem}{g.marca_bico ? ` · ${g.marca_bico}` : ''}</div>
                 <div className="brand-tag" style={{ marginTop: 10 }}>{CFG.peca.fabricante_label}</div>
               </div>
               {g.alternativeOems.length > 0 && (
