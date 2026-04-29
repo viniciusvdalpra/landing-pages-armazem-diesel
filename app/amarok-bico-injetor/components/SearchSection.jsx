@@ -8,13 +8,21 @@ function pecaSrc(file) {
   return `/${CFG.slug}/${file}`;
 }
 
+// Resolve foto da peça com prioridade: variant.foto > foto_por_marca[marca_bico] > foto_default
+function resolvePecaFoto(variant) {
+  if (variant?.foto) return variant.foto;
+  const map = CFG.peca?.foto_por_marca;
+  if (map && variant?.marca_bico && map[variant.marca_bico]) return map[variant.marca_bico];
+  return CFG.peca.foto_default;
+}
+
 function ResultPlate({ vehicle }) {
   const p = vehicle.part;
   const msg = fmt(CFG.wa.result_plate_template, {
     plate: vehicle.plate, oem: p.oem,
     modelo: vehicle.modelo, ano: vehicle.ano, motor: vehicle.motor,
   });
-  const fotoSrc = pecaSrc(p.foto || CFG.peca.foto_default);
+  const fotoSrc = pecaSrc(resolvePecaFoto(p));
 
   return (
     <div className="result-wrap fade-in">
@@ -79,7 +87,7 @@ function ResultYear({ year, variants }) {
       <div className="variant-grid">
         {groups.map((g, i) => {
           const msg = fmt(CFG.wa.result_year_template, { oem: g.oem, year, motor: g.motor });
-          const fotoSrc = pecaSrc(g.foto || CFG.peca.foto_default);
+          const fotoSrc = pecaSrc(resolvePecaFoto(g));
           return (
             <div className="variant-card" key={i}>
               <div className="variant-photo">
