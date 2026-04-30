@@ -1,28 +1,26 @@
-import CFG from '../config.json';
-import { fmt, waLink } from '../lib/wa';
-import { VEICULO_MODELO } from '../lib/parts';
+import { fmt, waLink } from './lib/wa';
+import { getVeiculoModelo } from './lib/parts';
 import { WhatsAppIcon } from './atoms';
 import Selector from './Selector';
 
-function pecaSrc(file) {
-  return `/${CFG.slug}/${file}`;
+function pecaSrc(cfg, file) {
+  return `/${cfg.slug}/${file}`;
 }
 
-// Resolve foto da peça com prioridade: variant.foto > foto_por_marca[marca_bico] > foto_default
-function resolvePecaFoto(variant) {
+function resolvePecaFoto(cfg, variant) {
   if (variant?.foto) return variant.foto;
-  const map = CFG.peca?.foto_por_marca;
+  const map = cfg.peca?.foto_por_marca;
   if (map && variant?.marca_bico && map[variant.marca_bico]) return map[variant.marca_bico];
-  return CFG.peca.foto_default;
+  return cfg.peca.foto_default;
 }
 
-function ResultPlate({ vehicle }) {
+function ResultPlate({ cfg, vehicle }) {
   const p = vehicle.part;
-  const msg = fmt(CFG.wa.result_plate_template, {
+  const msg = fmt(cfg.wa.result_plate_template, {
     plate: vehicle.plate, oem: p.oem,
     modelo: vehicle.modelo, ano: vehicle.ano, motor: vehicle.motor,
   });
-  const fotoSrc = pecaSrc(resolvePecaFoto(p));
+  const fotoSrc = pecaSrc(cfg, resolvePecaFoto(cfg, p));
 
   return (
     <div className="result-wrap fade-in">
@@ -59,17 +57,17 @@ function ResultPlate({ vehicle }) {
           </a>
         </div>
       </div>
-      {p.hasLine1a && CFG.peca.tem_primeira_linha && (
+      {p.hasLine1a && cfg.peca.tem_primeira_linha && (
         <div className="hint-row">
-          💡 <b>{CFG.result_messages.hint_primeira_linha_bold}</b> {CFG.result_messages.hint_primeira_linha_tail}
+          💡 <b>{cfg.result_messages.hint_primeira_linha_bold}</b> {cfg.result_messages.hint_primeira_linha_tail}
         </div>
       )}
     </div>
   );
 }
 
-function ResultYear({ year, variants }) {
-  // Agrupa por (motor, cv): 1 card por motor canônico, OEMs alternativos vão em texto pequeno
+function ResultYear({ cfg, year, variants }) {
+  const veiculoModelo = getVeiculoModelo(cfg);
   const groupsMap = new Map();
   variants.forEach((v) => {
     const key = `${v.motor}|${v.cv}`;
@@ -79,8 +77,8 @@ function ResultYear({ year, variants }) {
   const groups = Array.from(groupsMap.values());
 
   const titulo = groups.length > 1
-    ? `${VEICULO_MODELO} ${year} — escolha a variação do motor`
-    : `${VEICULO_MODELO} ${year}`;
+    ? `${veiculoModelo} ${year} — escolha a variação do motor`
+    : `${veiculoModelo} ${year}`;
   const subtitulo = groups.length > 1
     ? 'Selecione o motor do seu veículo para ver a peça exata.'
     : 'Encontramos a peça compatível com seu motor.';
@@ -91,20 +89,20 @@ function ResultYear({ year, variants }) {
       <div className="vehicle-spec">{subtitulo}</div>
       <div className="variant-grid">
         {groups.map((g, i) => {
-          const msg = fmt(CFG.wa.result_year_template, { oem: g.oem, year, motor: g.motor });
-          const fotoSrc = pecaSrc(resolvePecaFoto(g));
-          const equivalentes = CFG.peca?.equivalentes_por_motor?.[g.motor] || [];
+          const msg = fmt(cfg.wa.result_year_template, { oem: g.oem, year, motor: g.motor });
+          const fotoSrc = pecaSrc(cfg, resolvePecaFoto(cfg, g));
+          const equivalentes = cfg.peca?.equivalentes_por_motor?.[g.motor] || [];
           return (
             <div className="variant-card" key={i}>
               <div className="variant-photo">
-                <img src={fotoSrc} alt={`${CFG.peca.nome} ${g.oem}`} loading="lazy" />
+                <img src={fotoSrc} alt={`${cfg.peca.nome} ${g.oem}`} loading="lazy" />
               </div>
               <div className="v-motor">{g.motor}</div>
               {g.cv && <div className="v-hp">{g.cv}</div>}
               <div className="v-part">
-                <div className="v-part-name">{CFG.peca.short_label}</div>
+                <div className="v-part-name">{cfg.peca.short_label}</div>
                 <div className="v-part-oem">Cód. OEM: {g.oem}{g.marca_bico ? ` · ${g.marca_bico}` : ''}</div>
-                <div className="brand-tag" style={{ marginTop: 10 }}>{CFG.peca.fabricante_label}</div>
+                <div className="brand-tag" style={{ marginTop: 10 }}>{cfg.peca.fabricante_label}</div>
               </div>
               {equivalentes.length > 0 && (
                 <div style={{ fontSize: 11, color: 'var(--muted)', marginTop: 10, lineHeight: 1.4 }}>
@@ -126,13 +124,13 @@ function ResultYear({ year, variants }) {
         })}
       </div>
       <p style={{ fontSize: 13, color: 'var(--muted)', marginTop: 18 }}>
-        Não sabe qual é o seu? Insira a placa no seletor ↑ ou <a href={waLink(CFG.wa.result_dontknow_motor)} target="_blank" rel="noreferrer" style={{ textDecoration: 'underline' }}>chame o vendedor no WhatsApp</a>.
+        Não sabe qual é o seu? Insira a placa no seletor ↑ ou <a href={waLink(cfg.wa.result_dontknow_motor)} target="_blank" rel="noreferrer" style={{ textDecoration: 'underline' }}>chame o vendedor no WhatsApp</a>.
       </p>
     </div>
   );
 }
 
-function ResultNotFound({ query }) {
+function ResultNotFound({ cfg, query }) {
   return (
     <div className="result-wrap fade-in">
       <div className="vehicle-name" style={{ color: '#c1121f' }}>Não encontramos</div>
@@ -140,7 +138,7 @@ function ResultNotFound({ query }) {
         Não localizamos um veículo para <b style={{ color: 'var(--ink)' }}>{query}</b>. Verifique a placa ou fale com um vendedor pra gente conferir pela nota do carro.
       </div>
       <a className="btn btn-red btn-lg" style={{ marginTop: 18 }}
-         href={waLink(fmt(CFG.wa.result_notfound_template, { query }))}
+         href={waLink(fmt(cfg.wa.result_notfound_template, { query }))}
          target="_blank" rel="noreferrer">
         <WhatsAppIcon /> Chamar o vendedor
       </a>
@@ -148,14 +146,14 @@ function ResultNotFound({ query }) {
   );
 }
 
-function ResultNotSupported({ vehicle, query, message }) {
+function ResultNotSupported({ cfg, vehicle, query, message }) {
   const ident = [vehicle?.marca, vehicle?.modelo, vehicle?.ano].filter(Boolean).join(' ') || query;
-  const waMsg = fmt(CFG.wa.result_notsupported_template, { query, ident });
+  const waMsg = fmt(cfg.wa.result_notsupported_template, { query, ident });
   return (
     <div className="result-wrap fade-in">
       <div className="vehicle-name">Identificamos: {ident}</div>
       <div className="vehicle-spec" style={{ marginTop: 8 }}>
-        {message || CFG.result_messages.not_supported_default}
+        {message || cfg.result_messages.not_supported_default}
       </div>
       <a className="btn btn-red btn-lg" style={{ marginTop: 18 }}
          href={waLink(waMsg)} target="_blank" rel="noreferrer">
@@ -165,7 +163,7 @@ function ResultNotSupported({ vehicle, query, message }) {
   );
 }
 
-function ResultError({ query, message }) {
+function ResultError({ cfg, query, message }) {
   return (
     <div className="result-wrap fade-in">
       <div className="vehicle-name" style={{ color: '#c1121f' }}>Ops</div>
@@ -173,7 +171,7 @@ function ResultError({ query, message }) {
         {message || 'Não conseguimos consultar agora. Fale com um vendedor.'}
       </div>
       <a className="btn btn-red btn-lg" style={{ marginTop: 18 }}
-         href={waLink(fmt(CFG.wa.result_error_template, { query }))}
+         href={waLink(fmt(cfg.wa.result_error_template, { query }))}
          target="_blank" rel="noreferrer">
         <WhatsAppIcon /> Chamar o vendedor
       </a>
@@ -181,7 +179,7 @@ function ResultError({ query, message }) {
   );
 }
 
-export default function SearchSection({ result, onSearch, isSearching, selectorStyle }) {
+export default function SearchSection({ cfg, result, onSearch, isSearching, selectorStyle }) {
   const hasResult = !!result;
   return (
     <section className={`sec-off sec-pad search-section ${hasResult ? 'has-result' : 'is-empty'}`} id="buscar">
@@ -189,15 +187,15 @@ export default function SearchSection({ result, onSearch, isSearching, selectorS
         {hasResult ? (
           <>
             <div className="eyebrow" style={{ color: 'var(--muted)', marginBottom: 16 }}>Resultado da busca</div>
-            {result.kind === 'plate' && result.vehicle && <ResultPlate vehicle={result.vehicle} />}
-            {result.kind === 'year' && <ResultYear year={result.year} variants={result.variants} />}
-            {result.kind === 'notfound' && <ResultNotFound query={result.query} />}
-            {result.kind === 'notsupported' && <ResultNotSupported vehicle={result.vehicle} query={result.query} message={result.message} />}
-            {result.kind === 'error' && <ResultError query={result.query} message={result.message} />}
+            {result.kind === 'plate' && result.vehicle && <ResultPlate cfg={cfg} vehicle={result.vehicle} />}
+            {result.kind === 'year' && <ResultYear cfg={cfg} year={result.year} variants={result.variants} />}
+            {result.kind === 'notfound' && <ResultNotFound cfg={cfg} query={result.query} />}
+            {result.kind === 'notsupported' && <ResultNotSupported cfg={cfg} vehicle={result.vehicle} query={result.query} message={result.message} />}
+            {result.kind === 'error' && <ResultError cfg={cfg} query={result.query} message={result.message} />}
           </>
         ) : (
           <div className="search-section-empty-wrap">
-            <Selector onSearch={onSearch} isSearching={isSearching} selectorStyle={selectorStyle} />
+            <Selector cfg={cfg} onSearch={onSearch} isSearching={isSearching} selectorStyle={selectorStyle} />
           </div>
         )}
       </div>

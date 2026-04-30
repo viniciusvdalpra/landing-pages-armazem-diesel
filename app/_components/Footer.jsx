@@ -1,4 +1,4 @@
-import { WA_NUMBER_DISPLAY } from '../lib/wa';
+import { WA_NUMBER_DISPLAY } from './lib/wa';
 
 export default function Footer() {
   return (

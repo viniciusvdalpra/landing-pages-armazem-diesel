@@ -1,10 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
-import CFG from '../config.json';
 import { TrustIcon } from './atoms';
 import { getFabricanteLabel } from '@/lib/content';
 
-export default function TrustBar({ style }) {
-  const fabricante = getFabricanteLabel(CFG);
+export default function TrustBar({ cfg, style }) {
+  const fabricante = getFabricanteLabel(cfg);
   const cells = [
     { icon: 'shield', ttl: 'Peças Originais', sub: fabricante ? `OEM ${fabricante}` : 'Garantia de fábrica', num: '100%' },
     { icon: 'box', ttl: 'Despacho Rápido', sub: 'Saída em até 24h úteis', num: '24h' },

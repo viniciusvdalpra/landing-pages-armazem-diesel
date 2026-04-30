@@ -1,11 +1,9 @@
 import { useEffect, useState } from 'react';
-import CFG from '../config.json';
 import { getContent } from '@/lib/content';
 import { Star } from './atoms';
 
-const { TESTIMONIALS } = getContent(CFG);
-
-export default function Testimonials() {
+export default function Testimonials({ cfg }) {
+  const { TESTIMONIALS } = getContent(cfg);
   const [idx, setIdx] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -20,7 +18,7 @@ export default function Testimonials() {
     if (!isMobile) return;
     const id = setInterval(() => setIdx((i) => (i + 1) % TESTIMONIALS.length), 5000);
     return () => clearInterval(id);
-  }, [isMobile]);
+  }, [isMobile, TESTIMONIALS.length]);
 
   return (
     <section className="sec-off sec-pad">

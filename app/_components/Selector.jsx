@@ -1,17 +1,15 @@
 import { useState } from 'react';
-import CFG from '../config.json';
-import { YEAR_VARIANTS } from '../lib/parts';
+import { getYearVariants } from './lib/parts';
 
-export default function Selector({ onSearch, isSearching, selectorStyle }) {
+export default function Selector({ cfg, onSearch, isSearching, selectorStyle }) {
+  const yearVariants = getYearVariants(cfg);
   const [mode, setMode] = useState('plate');
   const [plate, setPlate] = useState('');
   const [year, setYear] = useState('');
   const [motor, setMotor] = useState('');
   const [err, setErr] = useState('');
 
-  const allMotors = year ? YEAR_VARIANTS[parseInt(year, 10)] || [] : [];
-  // Dedup por (motor, cv) — quando há múltiplos OEMs pro mesmo motor+cv (ex HR D4CB),
-  // dropdown deve mostrar 1 opção só, não N iguais.
+  const allMotors = year ? yearVariants[parseInt(year, 10)] || [] : [];
   const motors = Array.from(
     new Map(allMotors.map((m) => [`${m.motor}|${m.cv}`, m])).values()
   );
@@ -41,8 +39,8 @@ export default function Selector({ onSearch, isSearching, selectorStyle }) {
 
   return (
     <div className={`selector ${isOutline ? 'is-outline' : ''} ${isFlat ? 'is-flat' : ''}`}>
-      <h2 className="sel-title">{CFG.selector.titulo_l1}<br />{CFG.selector.titulo_l2}</h2>
-      <p className="sel-small">{CFG.selector.subtexto}</p>
+      <h2 className="sel-title">{cfg.selector.titulo_l1}<br />{cfg.selector.titulo_l2}</h2>
+      <p className="sel-small">{cfg.selector.subtexto}</p>
 
       <form className="sel-fieldset" onSubmit={submitPlate}>
         <label>Mais preciso</label>
@@ -74,7 +72,7 @@ export default function Selector({ onSearch, isSearching, selectorStyle }) {
             aria-label="Ano do veículo"
           >
             <option value="">Ano do veículo</option>
-            {Object.keys(YEAR_VARIANTS).map((y) => (
+            {Object.keys(yearVariants).map((y) => (
               <option key={y} value={y}>{y}</option>
             ))}
           </select>

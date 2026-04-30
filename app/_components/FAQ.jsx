@@ -1,10 +1,8 @@
 import { useState } from 'react';
-import CFG from '../config.json';
 import { getContent } from '@/lib/content';
 
-const { FAQS } = getContent(CFG);
-
-export default function FAQ() {
+export default function FAQ({ cfg }) {
+  const { FAQS } = getContent(cfg);
   const [open, setOpen] = useState(0);
   return (
     <section className="sec-off sec-pad" style={{ paddingTop: 20 }}>

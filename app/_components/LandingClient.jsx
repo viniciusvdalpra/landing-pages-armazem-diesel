@@ -1,18 +1,17 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import CFG from './config.json';
 import { waLink } from './lib/wa';
-import { enrichMotor, isSupported, resolvePart, YEAR_VARIANTS } from './lib/parts';
-import { WhatsAppIcon } from './components/atoms';
-import Hero from './components/Hero';
-import TrustBar from './components/TrustBar';
-import SearchSection from './components/SearchSection';
-import WhySection from './components/WhySection';
-import Testimonials from './components/Testimonials';
-import FAQ from './components/FAQ';
-import FinalCTA from './components/FinalCTA';
-import Footer from './components/Footer';
+import { enrichMotor, isSupported, resolvePart, getYearVariants } from './lib/parts';
+import { WhatsAppIcon } from './atoms';
+import Hero from './Hero';
+import TrustBar from './TrustBar';
+import SearchSection from './SearchSection';
+import WhySection from './WhySection';
+import Testimonials from './Testimonials';
+import FAQ from './FAQ';
+import FinalCTA from './FinalCTA';
+import Footer from './Footer';
 
 const TWEAK_DEFAULTS = {
   heroLayout: 'split',
@@ -22,7 +21,7 @@ const TWEAK_DEFAULTS = {
   heroImage: 'static',
 };
 
-export default function LandingClient() {
+export default function LandingClient({ cfg }) {
   const [tweaks] = useState(TWEAK_DEFAULTS);
   const [searching, setSearching] = useState(false);
   const [result, setResult] = useState(null);
@@ -43,7 +42,7 @@ export default function LandingClient() {
 
     if (kind === 'year') {
       setTimeout(() => {
-        const variants = YEAR_VARIANTS[year] || [];
+        const variants = getYearVariants(cfg)[year] || [];
         const filtered = motor ? variants.filter((v) => v.motor === motor) : variants;
         setResult({ kind: 'year', year, variants: filtered.length ? filtered : variants });
         setSearching(false);
@@ -76,8 +75,8 @@ export default function LandingClient() {
         return;
       }
 
-      const v = enrichMotor(data.vehicle || {});
-      if (!isSupported(v)) {
+      const v = enrichMotor(cfg, data.vehicle || {});
+      if (!isSupported(cfg, v)) {
         setResult({
           kind: 'notsupported',
           query: clean,
@@ -97,7 +96,7 @@ export default function LandingClient() {
           motor: v.motor,
           ano: v.ano,
           cv: v.cv,
-          part: resolvePart(v.motor, v.ano, v.cv),
+          part: resolvePart(cfg, v.motor, v.ano, v.cv),
         },
       });
     } catch (e) {
@@ -108,30 +107,32 @@ export default function LandingClient() {
     }
   };
 
-  const waMsg = CFG.wa.fab_default;
+  const waMsg = cfg.wa.fab_default;
 
   return (
     <>
       <Hero
+        cfg={cfg}
         heroLayout={tweaks.heroLayout}
         selectorStyle={tweaks.selectorStyle}
         heroImage={tweaks.heroImage}
         onSearch={handleSearch}
         isSearching={searching}
       />
-      <TrustBar style={tweaks.trustStyle} />
+      <TrustBar cfg={cfg} style={tweaks.trustStyle} />
       <div ref={resultRef}>
         <SearchSection
+          cfg={cfg}
           result={result}
           onSearch={handleSearch}
           isSearching={searching}
           selectorStyle={tweaks.selectorStyle}
         />
       </div>
-      <WhySection style={tweaks.whyStyle} />
-      <Testimonials />
-      <FAQ />
-      <FinalCTA />
+      <WhySection cfg={cfg} style={tweaks.whyStyle} />
+      <Testimonials cfg={cfg} />
+      <FAQ cfg={cfg} />
+      <FinalCTA cfg={cfg} />
       <Footer />
 
       <a className="wa-fab" href={waLink(waMsg)} target="_blank" rel="noreferrer" aria-label="WhatsApp">

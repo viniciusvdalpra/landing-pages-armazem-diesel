@@ -1,31 +1,38 @@
-import CFG from '../config.json';
 import OEMS from '@/data/oems.json';
 
-const _veiculo_data = OEMS[CFG.categoria]?.[CFG.veiculo_key];
-if (!_veiculo_data) {
-  throw new Error(`Config inválida: "${CFG.categoria}" + "${CFG.veiculo_key}" não encontrado em oems.json`);
+function getVeiculoData(cfg) {
+  const data = OEMS[cfg.categoria]?.[cfg.veiculo_key];
+  if (!data) {
+    throw new Error(`Config inválida: "${cfg.categoria}" + "${cfg.veiculo_key}" não encontrado em oems.json`);
+  }
+  return data;
 }
 
-export const YEAR_VARIANTS = _veiculo_data.variants_por_ano;
-export const VEICULO_MODELO = _veiculo_data.veiculo.modelo;
+export function getYearVariants(cfg) {
+  return getVeiculoData(cfg).variants_por_ano;
+}
 
-function resolveEquivalentes(motor) {
-  const map = CFG.peca?.equivalentes_por_motor;
+export function getVeiculoModelo(cfg) {
+  return getVeiculoData(cfg).veiculo.modelo;
+}
+
+function resolveEquivalentes(cfg, motor) {
+  const map = cfg.peca?.equivalentes_por_motor;
   if (!map || !motor) return [];
   return map[motor] || [];
 }
 
-export function resolvePart(motor, ano, cv) {
-  const oemUnknown = CFG.result_messages.default_oem_unknown;
+export function resolvePart(cfg, motor, ano, cv) {
+  const oemUnknown = cfg.result_messages.default_oem_unknown;
   const defaultPart = {
-    name: CFG.peca.nome,
+    name: cfg.peca.nome,
     oem: oemUnknown,
-    brand: CFG.peca.fabricante_label,
-    bullets: CFG.peca.bullets_unknown,
-    hasLine1a: CFG.peca.tem_primeira_linha,
+    brand: cfg.peca.fabricante_label,
+    bullets: cfg.peca.bullets_unknown,
+    hasLine1a: cfg.peca.tem_primeira_linha,
     equivalentes: [],
   };
-  const variants = YEAR_VARIANTS[ano] || [];
+  const variants = getYearVariants(cfg)[ano] || [];
   if (!variants.length) return defaultPart;
 
   const motorUp = String(motor || '').toUpperCase();
@@ -43,23 +50,23 @@ export function resolvePart(motor, ano, cv) {
     foto: match.foto,
     marca_bico: match.marca_bico,
     motor: match.motor,
-    equivalentes: resolveEquivalentes(match.motor),
-    hasLine1a: !isV6 && CFG.peca.tem_primeira_linha,
-    bullets: isV6 && CFG.peca.bullets_v6 ? CFG.peca.bullets_v6 : CFG.peca.bullets_default,
+    equivalentes: resolveEquivalentes(cfg, match.motor),
+    hasLine1a: !isV6 && cfg.peca.tem_primeira_linha,
+    bullets: isV6 && cfg.peca.bullets_v6 ? cfg.peca.bullets_v6 : cfg.peca.bullets_default,
   };
 }
 
-export function enrichMotor(vehicle) {
-  const map = CFG.veiculo?.motor_por_cv;
+export function enrichMotor(cfg, vehicle) {
+  const map = cfg.veiculo?.motor_por_cv;
   if (!vehicle || vehicle.motor || !map || !vehicle.cv) return vehicle;
   const fromCv = map[String(vehicle.cv)];
   if (!fromCv) return vehicle;
   return { ...vehicle, motor: fromCv };
 }
 
-export function isSupported(vehicle) {
-  const marcas = CFG.veiculo?.marca_aliases || [];
-  const modelos = CFG.veiculo?.modelo_aliases || [];
+export function isSupported(cfg, vehicle) {
+  const marcas = cfg.veiculo?.marca_aliases || [];
+  const modelos = cfg.veiculo?.modelo_aliases || [];
   if (!marcas.length || !modelos.length) return true;
   const marcaUp = String(vehicle.marca || '').toUpperCase();
   const modeloUp = String(vehicle.modelo || '').toUpperCase();

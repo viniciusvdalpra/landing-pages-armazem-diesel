@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react';
-import CFG from '../config.json';
 import { getFabricanteLabel } from '@/lib/content';
 import Selector from './Selector';
 
-export default function Hero({ heroLayout, selectorStyle, heroImage, onSearch, isSearching }) {
-  const imgSrc = heroImage === 'dust' ? CFG.hero.foto_dust : CFG.hero.foto_static;
-  const bgUrl = `/${CFG.slug}/${imgSrc}`;
+export default function Hero({ cfg, heroLayout, selectorStyle, heroImage, onSearch, isSearching }) {
+  const imgSrc = heroImage === 'dust' ? cfg.hero.foto_dust : cfg.hero.foto_static;
+  const bgUrl = `/${cfg.slug}/${imgSrc}`;
   const [loaded, setLoaded] = useState(false);
-  const fabricante = getFabricanteLabel(CFG);
+  const fabricante = getFabricanteLabel(cfg);
   const garantiaLabel = fabricante ? `GARANTIA ${fabricante.toUpperCase()}` : 'GARANTIA DE FÁBRICA';
 
   useEffect(() => {
@@ -24,14 +23,14 @@ export default function Hero({ heroLayout, selectorStyle, heroImage, onSearch, i
       <div className="container">
         <div className={`hero-grid ${heroLayout === 'stack' ? 'is-stack' : ''}`}>
           <div>
-            <div className="eyebrow hero-tag">{CFG.hero.eyebrow}</div>
+            <div className="eyebrow hero-tag">{cfg.hero.eyebrow}</div>
             <h1 className="h1 hero-h1">
-              {CFG.hero.h1_linha1}<br />{CFG.hero.h1_linha2}<span className="red-dot" />
-              <span className="line-2">{CFG.hero.h1_sub}</span>
+              {cfg.hero.h1_linha1}<br />{cfg.hero.h1_linha2}<span className="red-dot" />
+              <span className="line-2">{cfg.hero.h1_sub}</span>
             </h1>
-            <p className="hero-sub">{CFG.hero.sub}</p>
+            <p className="hero-sub">{cfg.hero.sub}</p>
             <a className="hero-cta-mobile" href="#buscar">
-              <span>{CFG.hero.cta_mobile_label}</span>
+              <span>{cfg.hero.cta_mobile_label}</span>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <line x1="5" y1="12" x2="19" y2="12" />
                 <polyline points="13 6 19 12 13 18" />
@@ -59,7 +58,7 @@ export default function Hero({ heroLayout, selectorStyle, heroImage, onSearch, i
             </ul>
           </div>
 
-          <Selector onSearch={onSearch} isSearching={isSearching} selectorStyle={selectorStyle} />
+          <Selector cfg={cfg} onSearch={onSearch} isSearching={isSearching} selectorStyle={selectorStyle} />
         </div>
       </div>
     </section>
