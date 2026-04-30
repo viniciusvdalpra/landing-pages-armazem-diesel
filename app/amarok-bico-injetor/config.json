@@ -129,6 +129,15 @@
     "og_image": "assets/amarok-static.png",
     "og_image_alt": "VW Amarok preta em ângulo frontal",
     "twitter_description": "Bico injetor Bosch original ou primeira linha para VW Amarok 2.0 TDI e 3.0 V6.",
-    "canonical_path": "/amarok-bico-injetor/"
+    "canonical_path": "/amarok-bico-injetor/",
+    "product": {
+      "name": "Bico Injetor Bosch para VW Amarok 2.0 TDI e 3.0 V6",
+      "description": "Bico injetor original Bosch ou primeira linha para VW Amarok 2.0 TDI (140cv/163cv/180cv Biturbo) e 3.0 V6 TDI (224cv/258cv), anos 2010-2024. Código OEM confirmado por consulta FIPE/Denatran.",
+      "brands": ["Bosch"],
+      "vehicles": [
+        "Volkswagen Amarok 2.0 TDI",
+        "Volkswagen Amarok 3.0 V6 TDI"
+      ]
+    }
   }
 }

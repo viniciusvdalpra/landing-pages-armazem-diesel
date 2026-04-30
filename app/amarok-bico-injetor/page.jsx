@@ -1,6 +1,7 @@
 import CFG from './config.json';
 import './styles.css';
 import LandingClient from '../_components/LandingClient';
+import { buildJsonLd } from '../_components/lib/jsonld';
 
 export const dynamic = 'force-static';
 
@@ -30,43 +31,7 @@ export const metadata = {
   },
 };
 
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@graph': [
-    {
-      '@type': 'AutoPartsStore',
-      '@id': 'https://armazemautopecas.com.br/#business',
-      name: 'Armazém Auto Peças',
-      url: 'https://armazemautopecas.com.br',
-      telephone: '+5549999484754',
-      address: {
-        '@type': 'PostalAddress',
-        addressLocality: 'Chapecó',
-        addressRegion: 'SC',
-        addressCountry: 'BR',
-      },
-      sameAs: ['https://wa.me/5549999484754'],
-    },
-    {
-      '@type': 'Product',
-      name: 'Bico Injetor Bosch para VW Amarok 2.0 TDI e 3.0 V6',
-      description: 'Bico injetor original Bosch ou primeira linha para VW Amarok 2.0 TDI (140cv/163cv/180cv Biturbo) e 3.0 V6 TDI (224cv/258cv), anos 2010-2024. Código OEM confirmado por consulta FIPE/Denatran.',
-      brand: { '@type': 'Brand', name: 'Bosch' },
-      category: 'Peça automotiva — sistema de injeção diesel',
-      isRelatedTo: [
-        { '@type': 'Vehicle', name: 'Volkswagen Amarok 2.0 TDI' },
-        { '@type': 'Vehicle', name: 'Volkswagen Amarok 3.0 V6 TDI' },
-      ],
-      offers: {
-        '@type': 'Offer',
-        availability: 'https://schema.org/InStock',
-        priceCurrency: 'BRL',
-        seller: { '@id': 'https://armazemautopecas.com.br/#business' },
-        url: PAGE_URL,
-      },
-    },
-  ],
-};
+const jsonLd = buildJsonLd(CFG, PAGE_URL);
 
 export default function Page() {
   return (

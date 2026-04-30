@@ -1,6 +1,7 @@
 import CFG from './config.json';
 import './styles.css';
 import LandingClient from '../_components/LandingClient';
+import { buildJsonLd } from '../_components/lib/jsonld';
 
 export const dynamic = 'force-static';
 
@@ -30,45 +31,7 @@ export const metadata = {
   },
 };
 
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@graph': [
-    {
-      '@type': 'AutoPartsStore',
-      '@id': 'https://armazemautopecas.com.br/#business',
-      name: 'Armazém Auto Peças',
-      url: 'https://armazemautopecas.com.br',
-      telephone: '+5549999484754',
-      address: {
-        '@type': 'PostalAddress',
-        addressLocality: 'Chapecó',
-        addressRegion: 'SC',
-        addressCountry: 'BR',
-      },
-      sameAs: ['https://wa.me/5549999484754'],
-    },
-    {
-      '@type': 'Product',
-      name: 'Bico Injetor para Hyundai HR 2.5 D4CB CRDi',
-      description: 'Bico injetor original para Hyundai HR 2.5 D4CB CRDi (130cv) — Delphi (até 2022) e Bosch (2023+ Euro 6 com Arla), anos 2012-2026. Códigos OEM confirmados por consulta FIPE/Denatran.',
-      brand: [
-        { '@type': 'Brand', name: 'Delphi' },
-        { '@type': 'Brand', name: 'Bosch' },
-      ],
-      category: 'Peça automotiva — sistema de injeção diesel',
-      isRelatedTo: [
-        { '@type': 'Vehicle', name: 'Hyundai HR 2.5 D4CB CRDi' },
-      ],
-      offers: {
-        '@type': 'Offer',
-        availability: 'https://schema.org/InStock',
-        priceCurrency: 'BRL',
-        seller: { '@id': 'https://armazemautopecas.com.br/#business' },
-        url: PAGE_URL,
-      },
-    },
-  ],
-};
+const jsonLd = buildJsonLd(CFG, PAGE_URL);
 
 export default function Page() {
   return (

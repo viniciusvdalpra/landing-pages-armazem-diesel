@@ -116,6 +116,14 @@
     "og_image": "assets/hero-static.png",
     "og_image_alt": "Hyundai HR baú branco em galpão de logística",
     "twitter_description": "Bico injetor original para Hyundai HR 2.5 D4CB CRDi (Delphi até 2022, Bosch 2023+).",
-    "canonical_path": "/hr-bico-injetor/"
+    "canonical_path": "/hr-bico-injetor/",
+    "product": {
+      "name": "Bico Injetor para Hyundai HR 2.5 D4CB CRDi",
+      "description": "Bico injetor original para Hyundai HR 2.5 D4CB CRDi (130cv) — Delphi (até 2022) e Bosch (2023+ Euro 6 com Arla), anos 2012-2026. Códigos OEM confirmados por consulta FIPE/Denatran.",
+      "brands": ["Delphi", "Bosch"],
+      "vehicles": [
+        "Hyundai HR 2.5 D4CB CRDi"
+      ]
+    }
   }
 }
