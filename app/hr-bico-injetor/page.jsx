@@ -1,6 +1,6 @@
 import CFG from './config.json';
 import './styles.css';
-import LandingClient from './LandingClient';
+import LandingClient from '../_components/LandingClient';
 
 export const dynamic = 'force-static';
 
@@ -78,7 +78,7 @@ export default function Page() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <link rel="preload" as="image" href={`/${CFG.slug}/${CFG.hero.foto_static}`} type="image/webp" fetchPriority="high" />
-      <LandingClient />
+      <LandingClient cfg={CFG} />
     </>
   );
 }
