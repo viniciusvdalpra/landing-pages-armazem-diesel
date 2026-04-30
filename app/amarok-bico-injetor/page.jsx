@@ -1,5 +1,5 @@
 import CFG from './config.json';
-import './styles.css';
+import '../_components/styles.css';
 import LandingClient from '../_components/LandingClient';
 import { buildJsonLd } from '../_components/lib/jsonld';
 
