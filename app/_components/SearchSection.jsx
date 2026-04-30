@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { fmt, waLink } from './lib/wa';
 import { getVeiculoModelo } from './lib/parts';
 import { WhatsAppIcon } from './atoms';
@@ -36,7 +37,7 @@ function ResultPlate({ cfg, vehicle }) {
       <div className="part-label">Peça compatível com seu veículo</div>
       <div className="part-card">
         <div className="part-photo">
-          <img src={fotoSrc} alt={`${p.name} — ${p.oem}`} loading="lazy" />
+          <Image src={fotoSrc} alt={`${p.name} — ${p.oem}`} width={600} height={600} sizes="(max-width: 768px) 90vw, 400px" />
           <div className="ph-label">{p.name} · {p.oem}</div>
         </div>
         <div>
@@ -95,7 +96,7 @@ function ResultYear({ cfg, year, variants }) {
           return (
             <div className="variant-card" key={i}>
               <div className="variant-photo">
-                <img src={fotoSrc} alt={`${cfg.peca.nome} ${g.oem}`} loading="lazy" />
+                <Image src={fotoSrc} alt={`${cfg.peca.nome} ${g.oem}`} width={600} height={600} sizes="(max-width: 768px) 45vw, 300px" />
               </div>
               <div className="v-motor">{g.motor}</div>
               {g.cv && <div className="v-hp">{g.cv}</div>}

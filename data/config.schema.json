@@ -1,0 +1,186 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://landing-pages-armazem-diesel.vercel.app/config.schema.json",
+  "title": "LP Config",
+  "description": "Schema dos config.json de cada LP. Valida shape mínimo necessário pra LandingClient + helper de JSON-LD funcionarem.",
+  "type": "object",
+  "required": [
+    "slug",
+    "categoria",
+    "veiculo_key",
+    "veiculo",
+    "hero",
+    "selector",
+    "peca",
+    "why",
+    "wa",
+    "result_messages",
+    "final_cta",
+    "seo"
+  ],
+  "additionalProperties": true,
+  "properties": {
+    "_doc": { "type": "string" },
+    "slug": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+    "categoria": { "type": "string", "enum": ["bico-injetor"] },
+    "veiculo_key": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+
+    "veiculo": {
+      "type": "object",
+      "required": ["marca_aliases", "modelo_aliases"],
+      "properties": {
+        "marca_aliases": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+        "modelo_aliases": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+        "motor_por_cv": { "type": "object" }
+      }
+    },
+
+    "hero": {
+      "type": "object",
+      "required": ["foto_static", "eyebrow", "h1_linha1", "h1_linha2", "h1_sub", "sub", "cta_mobile_label"],
+      "properties": {
+        "foto_static": { "type": "string" },
+        "foto_dust": { "type": "string" },
+        "eyebrow": { "type": "string" },
+        "h1_linha1": { "type": "string" },
+        "h1_linha2": { "type": "string" },
+        "h1_sub": { "type": "string" },
+        "sub": { "type": "string" },
+        "cta_mobile_label": { "type": "string" }
+      }
+    },
+
+    "selector": {
+      "type": "object",
+      "required": ["titulo_l1", "titulo_l2", "subtexto"],
+      "properties": {
+        "titulo_l1": { "type": "string" },
+        "titulo_l2": { "type": "string" },
+        "subtexto": { "type": "string" }
+      }
+    },
+
+    "peca": {
+      "type": "object",
+      "required": ["nome", "short_label", "fabricante_label", "tem_primeira_linha", "bullets_default", "bullets_unknown", "foto_default"],
+      "properties": {
+        "nome": { "type": "string" },
+        "short_label": { "type": "string" },
+        "fabricante_label": { "type": "string" },
+        "fabricante_principal_short": { "type": "string" },
+        "tem_primeira_linha": { "type": "boolean" },
+        "bullets_default": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+        "bullets_v6": { "type": "array", "items": { "type": "string" } },
+        "bullets_unknown": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+        "foto_default": { "type": "string" },
+        "foto_por_marca": { "type": "object" },
+        "equivalentes_por_motor": { "type": "object" }
+      }
+    },
+
+    "why": {
+      "type": "object",
+      "required": ["h2_l1", "h2_l2", "h2_l2_red", "items"],
+      "properties": {
+        "h2_l1": { "type": "string" },
+        "h2_l2": { "type": "string" },
+        "h2_l2_red": { "type": "string" },
+        "items": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["num", "ttl", "body"],
+            "properties": {
+              "num": { "type": "string" },
+              "ttl": { "type": "string" },
+              "body": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+
+    "wa": {
+      "type": "object",
+      "required": [
+        "fab_default",
+        "result_plate_template",
+        "result_year_template",
+        "result_notfound_template",
+        "result_notsupported_template",
+        "result_error_template",
+        "result_dontknow_motor",
+        "final_cta"
+      ],
+      "properties": {
+        "fab_default": { "type": "string" },
+        "result_plate_template": { "type": "string" },
+        "result_year_template": { "type": "string" },
+        "result_notfound_template": { "type": "string" },
+        "result_notsupported_template": { "type": "string" },
+        "result_error_template": { "type": "string" },
+        "result_dontknow_motor": { "type": "string" },
+        "final_cta": { "type": "string" }
+      }
+    },
+
+    "result_messages": {
+      "type": "object",
+      "required": ["default_oem_unknown", "not_supported_default", "hint_primeira_linha_bold", "hint_primeira_linha_tail"],
+      "properties": {
+        "default_oem_unknown": { "type": "string" },
+        "not_supported_default": { "type": "string" },
+        "hint_primeira_linha_bold": { "type": "string" },
+        "hint_primeira_linha_tail": { "type": "string" }
+      }
+    },
+
+    "final_cta": {
+      "type": "object",
+      "required": ["h2_l1", "h2_l2_red_l1", "h2_l2_red_l2", "sub_pre", "sub_anchor", "sub_post", "btn", "microtext_pre", "microtext_post"],
+      "properties": {
+        "h2_l1": { "type": "string" },
+        "h2_l2_red_l1": { "type": "string" },
+        "h2_l2_red_l2": { "type": "string" },
+        "sub_pre": { "type": "string" },
+        "sub_anchor": { "type": "string" },
+        "sub_post": { "type": "string" },
+        "btn": { "type": "string" },
+        "microtext_pre": { "type": "string" },
+        "microtext_post": { "type": "string" }
+      }
+    },
+
+    "content": {
+      "type": "object",
+      "properties": {
+        "testimonials": { "type": "array" },
+        "faqs": { "type": "array" }
+      }
+    },
+
+    "seo": {
+      "type": "object",
+      "required": ["title", "description", "og_image", "og_image_alt", "twitter_description", "canonical_path", "product"],
+      "properties": {
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "og_image": { "type": "string" },
+        "og_image_alt": { "type": "string" },
+        "twitter_description": { "type": "string" },
+        "canonical_path": { "type": "string", "pattern": "^/.*/$" },
+        "product": {
+          "type": "object",
+          "required": ["name", "description", "brands", "vehicles"],
+          "properties": {
+            "name": { "type": "string" },
+            "description": { "type": "string" },
+            "brands": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+            "vehicles": { "type": "array", "minItems": 1, "items": { "type": "string" } }
+          }
+        }
+      }
+    }
+  }
+}
