@@ -9,6 +9,7 @@
     "marca_aliases": ["VOLKSWAGEN", "VW"],
     "modelo_aliases": ["AMAROK"],
     "motor_por_cv": {
+      "122": "2.0 TDI Diesel",
       "140": "2.0 TDI Diesel",
       "163": "2.0 TDI Diesel",
       "180": "2.0 BiTDI Diesel",
@@ -47,6 +48,10 @@
     "foto_alt": "Bico injetor Bosch original na caixa",
     "tem_primeira_linha": true,
     "v6_disponibilidade_limitada": true,
+    "equivalentes_por_motor": {
+      "2.0 TDI": ["0445110646", "0445110647", "0986435166", "03L130277J", "03L130277Q"],
+      "3.0 V6 TDI": ["0445117084", "059130277FC"]
+    },
     "bullets_default": [
       "Peça original de fábrica",
       "Garantia Bosch",

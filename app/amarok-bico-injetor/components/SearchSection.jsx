@@ -44,6 +44,11 @@ function ResultPlate({ vehicle }) {
         <div>
           <div className="part-title">{p.name}</div>
           <div className="part-oem">Cód. OEM: {p.oem}{p.marca_bico ? ` · ${p.marca_bico}` : ''}</div>
+          {p.equivalentes && p.equivalentes.length > 0 && (
+            <div style={{ fontSize: 11, color: 'var(--muted)', marginTop: 4, lineHeight: 1.4 }}>
+              Códigos compatíveis: {p.equivalentes.join(', ')}
+            </div>
+          )}
           <div className="brand-tag">{p.brand}</div>
           <ul className="part-bullets">
             {p.bullets.map((b, i) => <li key={i}>{b}</li>)}
@@ -88,18 +93,24 @@ function ResultYear({ year, variants }) {
         {groups.map((g, i) => {
           const msg = fmt(CFG.wa.result_year_template, { oem: g.oem, year, motor: g.motor });
           const fotoSrc = pecaSrc(resolvePecaFoto(g));
+          const equivalentes = CFG.peca?.equivalentes_por_motor?.[g.motor] || [];
           return (
             <div className="variant-card" key={i}>
               <div className="variant-photo">
                 <img src={fotoSrc} alt={`${CFG.peca.nome} ${g.oem}`} loading="lazy" />
               </div>
               <div className="v-motor">{g.motor}</div>
-              <div className="v-hp">{g.cv}</div>
+              {g.cv && <div className="v-hp">{g.cv}</div>}
               <div className="v-part">
                 <div className="v-part-name">{CFG.peca.short_label}</div>
                 <div className="v-part-oem">Cód. OEM: {g.oem}{g.marca_bico ? ` · ${g.marca_bico}` : ''}</div>
                 <div className="brand-tag" style={{ marginTop: 10 }}>{CFG.peca.fabricante_label}</div>
               </div>
+              {equivalentes.length > 0 && (
+                <div style={{ fontSize: 11, color: 'var(--muted)', marginTop: 10, lineHeight: 1.4 }}>
+                  Códigos compatíveis: {equivalentes.join(', ')}
+                </div>
+              )}
               {g.alternativeOems.length > 0 && (
                 <div style={{ fontSize: 11, color: 'var(--muted)', marginTop: 10, lineHeight: 1.4 }}>
                   Variantes alternativas: {g.alternativeOems.join(', ')}.<br />
